@@ -8,7 +8,7 @@ public class BalloonController : MonoBehaviour
 {
     public int hitPoint = 1;
 
-    private bool grown, dead;
+    private bool grown, dead, lock1;
     private Vector3 scale_ratio, constantForce_ratio, One, Ten, Zero;
     private Interactable interactable;
     private ConstantForce constantforce;
@@ -25,15 +25,18 @@ public class BalloonController : MonoBehaviour
         Ten = new Vector3(0f, 10f, 0f);
         Zero = new Vector3(0f, 0f, 0f);
         
-        // override scale
+        // Init state
         grown = false;
         dead = false;
-        scale_ratio = new Vector3(0f, 0f, 0f);
-        constantForce_ratio = new Vector3(0f, 0f, 0f);
-        transform.localScale = scale_ratio;
+        lock1 = false;
         
-        // override constant force & gravitysettings
-        constantforce.force = new Vector3(0f, 0f ,0f);
+        // Override scale
+        scale_ratio = Zero;
+        transform.localScale = scale_ratio;
+        constantForce_ratio = Zero;
+        constantforce.force = constantForce_ratio;
+
+        // Override constant force & gravity settings
         constantforce.enabled = true;
         rigidbody.useGravity = true;
 
@@ -56,8 +59,14 @@ public class BalloonController : MonoBehaviour
             else
             {
                 // detach
-                Player.instance.rightHand.DetachObject(gameObject);
-                Player.instance.rightHand.HoverUnlock(interactable);
+                if (!lock1) // prevent continous detach
+                {
+                    Player.instance.rightHand.DetachObject(gameObject);
+                    Player.instance.rightHand.HoverUnlock(interactable);
+                    lock1 = true;
+
+                    GameObject.Find("Player").SendMessage("Unlock_Lock1");  // unlock so that player can generate another balloon
+                }
 
                 rigidbody.isKinematic = false;
             }
@@ -65,11 +74,7 @@ public class BalloonController : MonoBehaviour
         else
         {
             // Elimitation: deflate -> Destroy
-            if (!dead)   
-            {
-                //rigidbody.isKinematic = true;
-                Scaling(1);
-            }
+            if (!dead) Scaling(1);
             else Destroy(gameObject, 5);
         }
 
@@ -87,7 +92,7 @@ public class BalloonController : MonoBehaviour
         */
         if (stage == 0)
         {
-            if (transform.localScale.y < 0.98)
+            if (transform.localScale.y < 0.98 || constantforce.force.y < 9.98)
             {
                 // gradually increase its size and floating force
                 scale_ratio = Vector3.Lerp(scale_ratio, One, 0.025f);
@@ -98,13 +103,13 @@ public class BalloonController : MonoBehaviour
             }
             else grown = true;
         }
-        else
+        else if (stage == 1)
         {
-            if (transform.localScale.y > 0.25)
+            if (transform.localScale.y > 0.25 || constantforce.force.y > 0.1)
             {
                 // gradually decrease its size and floating force
-                scale_ratio = Vector3.Lerp(scale_ratio, Zero, 0.025f);
-                constantForce_ratio = Vector3.Lerp(constantForce_ratio, Zero, 0.25f);
+                scale_ratio = Vector3.Lerp(scale_ratio, Zero, 0.01f);
+                constantForce_ratio = Vector3.Lerp(constantForce_ratio, Zero, 0.01f);
 
                 transform.localScale = scale_ratio;
                 constantforce.force = constantForce_ratio;

@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private LineRenderer laser;
     private WaitForSeconds shotDuration;
     private float nextFire, fireRate;
-    private bool showController = true;
+    private bool showController, lock1, lock2;
     private RaycastHit hit;
 
     void Start()
@@ -30,9 +30,13 @@ public class PlayerController : MonoBehaviour
         left_controller = SteamVRObjects.transform.Find("LeftHand").gameObject;
         right_controller = SteamVRObjects.transform.Find("RightHand").gameObject;
         laser = GetComponent<LineRenderer>();
-        
-        fireRate = 0.25f;
-        shotDuration = new WaitForSeconds(0.05f);
+
+        // Init state
+        showController = true;
+        lock1 = false;
+        lock2 = false;
+
+        shotDuration = new WaitForSeconds(0.25f);
     }
 
     void Update()
@@ -40,15 +44,18 @@ public class PlayerController : MonoBehaviour
         Init_Controller();
 
         // Generate balloon
-        if (rightControllerA.stateDown) Generate_Balloon();
+        if (rightControllerA.stateDown && !lock1) Generate_Balloon();
         
         // Shoot
-        if (rightControllerTrigger.stateDown && Time.time > nextFire) StartCoroutine(Shoot());
+        //if (rightControllerTrigger.stateDown && Time.time > nextFire) StartCoroutine(Shoot());
+        if (rightControllerTrigger.stateDown && !lock2) StartCoroutine(Shoot());
 
         // Debug
         //if (rightControllerB.stateDown) Test();
     }
 
+
+    public void Unlock_Lock1() { if (lock1) lock1 = false; }
 
     private void Init_Controller()
     {
@@ -68,23 +75,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     private void Test(GameObject obj)
     {
         GrabTypes grabType = Player.instance.rightHand.GetGrabStarting();
         Player.instance.rightHand.AttachObject(obj, grabType);
         Debug.Log("attached");
     }
-    
+    */
+
     private void Generate_Balloon()
     {
-        GameObject balloon = Instantiate(balloonPrefab, right_controller.transform.position, Quaternion.identity) as GameObject;
+        GameObject balloon = Instantiate(balloonPrefab, right_controller.transform.forward, Quaternion.identity) as GameObject;
+        lock1 = true;
     }
-    
+
     private IEnumerator Shoot()
     {
+        lock2 = true;
         laser.SetPosition(0, right_controller.transform.position);
 
-        if (Physics.Raycast(right_controller.transform.position, right_controller.transform.forward, out hit, weaponRange)) // if hit something
+        if (Physics.Raycast(right_controller.transform.position, right_controller.transform.forward * 2f, out hit, weaponRange)) // if hit something
         {
             laser.SetPosition(1, hit.point);
 
@@ -99,12 +110,14 @@ public class PlayerController : MonoBehaviour
         {
             laser.SetPosition(1, right_controller.transform.forward * weaponRange);;
         }
-        
-        nextFire = Time.time + fireRate;
+
+        // TODO: Remove any instantiated objects touched by the laser
+
+
+        //nextFire = Time.time + fireRate;
         laser.enabled = true;
         yield return shotDuration;  // yield return x -> wait for x frame
         laser.enabled = false;
-
-        // TODO: Remove any instantiated objects touched by the laser
+        lock2 = false;
     }
 }
