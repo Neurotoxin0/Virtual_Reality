@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 using Hand = Valve.VR.InteractionSystem.Hand;
@@ -20,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private GameObject SteamVRObjects, left_controller, right_controller;
     private LineRenderer laser;
     private WaitForSeconds shotDuration;
-    private float nextFire, fireRate;
     private bool showController, lock1, lock2;
     private RaycastHit hit;
 
@@ -47,7 +44,6 @@ public class PlayerController : MonoBehaviour
         if (rightControllerA.stateDown && !lock1) Generate_Balloon();
         
         // Shoot
-        //if (rightControllerTrigger.stateDown && Time.time > nextFire) StartCoroutine(Shoot());
         if (rightControllerTrigger.stateDown && !lock2) StartCoroutine(Shoot());
 
         // Debug
@@ -111,10 +107,6 @@ public class PlayerController : MonoBehaviour
             laser.SetPosition(1, right_controller.transform.forward * weaponRange);;
         }
 
-        // TODO: Remove any instantiated objects touched by the laser
-
-
-        //nextFire = Time.time + fireRate;
         laser.enabled = true;
         yield return shotDuration;  // yield return x -> wait for x frame
         laser.enabled = false;
