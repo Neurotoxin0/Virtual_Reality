@@ -1,5 +1,3 @@
-// Delete two of the following three lines, leaving only the true statement and fill in the blanks.
-
 2) I've recieved verbal/minor help from qant
 
 //	Init_Controller() by qant Licenced under CC-by-SA
