@@ -2,6 +2,6 @@
 
 2) I've recieved verbal/minor help from qant
 
-//  Init_Controller() by qant Licenced under CC-by-SA
+//	Init_Controller() by qant Licenced under CC-by-SA
 //	https://stackoverflow.com/questions/43527301/how-to-get-controller-input-when-using-the-steamvr-interaction-system
 //	https://stackoverflow.blog/2009/06/25/attribution-required/
