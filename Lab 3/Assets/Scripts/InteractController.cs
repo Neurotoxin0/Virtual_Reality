@@ -68,10 +68,10 @@ public class InteractController : MonoBehaviour
                 float angular_magnitude = angular.magnitude;
                 Vector3 velocity = behavior.GetVelocity();
                 float velocity_magnitude = velocity.magnitude;
-                Debug.Log("angular: " + angular + ", mag: " + angular_magnitude);
-                Debug.Log("vel: " + velocity + ", mag: " + velocity_magnitude);
+                //Debug.Log("angular: " + angular + ", mag: " + angular_magnitude);
+                //Debug.Log("vel: " + velocity + ", mag: " + velocity_magnitude);
 
-                //interactable_item.GetComponent<Rigidbody>().AddForce(-force, ForceMode.Impulse);
+                //interactable_item.GetComponent<Rigidbody>().AddForce(-angular.normalized * velocity_magnitude, ForceMode.Impulse);
                 interactable_item.GetComponent<Rigidbody>().velocity = -angular.normalized * velocity_magnitude;
 
                 is_grabbing = false;

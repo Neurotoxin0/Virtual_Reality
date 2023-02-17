@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class TeleportController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float laserRange = 10f;
     public SteamVR_Action_Boolean ControllerPadNorth;
-    public SteamVR_Action_Boolean ControllerPadButton;
+    public SteamVR_Action_Boolean ControllerPadPress;
     public GameObject pointer;
 
+    private GameObject left_controller, right_controller;
     private LineRenderer laser;
     private RaycastHit hit;
     private bool valid_teleport_position;
-    private GameObject CameraRig;
     private WaitForSeconds teleport_duration;
 
     void Start()
     {
+        left_controller  = GameObject.Find("Controller (left)").gameObject;
+        right_controller = GameObject.Find("Controller (right)").gameObject;
         laser = GetComponent<LineRenderer>();
+
         valid_teleport_position = false;
         teleport_duration = new WaitForSeconds(0.5f);
-        CameraRig = GameObject.Find("[CameraRig]").gameObject;
     }
 
     void Update()
@@ -39,15 +41,15 @@ public class TeleportController : MonoBehaviour
         }
 
         // Teleport
-        if (ControllerPadButton.stateDown && valid_teleport_position) StartCoroutine(Teleport());
+        if (ControllerPadPress.stateDown && valid_teleport_position) StartCoroutine(Teleport());
     }
 
 
     private void Update_Laser()
     {
-        laser.SetPosition(0, transform.position);
+        laser.SetPosition(0, right_controller.transform.position);
         
-        if (Physics.Raycast(transform.position, transform.forward, out hit, laserRange)) // if hit something
+        if (Physics.Raycast(right_controller.transform.position, right_controller.transform.forward, out hit, laserRange)) // if hit something
         {
             laser.SetPosition(1, hit.point);
 
@@ -60,7 +62,7 @@ public class TeleportController : MonoBehaviour
         }
         else    // hit nothing
         {
-            laser.SetPosition(1, transform.position + transform.forward * laserRange);
+            laser.SetPosition(1, right_controller.transform.position + right_controller.transform.forward * laserRange);
         }
 
         Set_Teleport_Conditions(false); // hit nothing or hitpoint cannot teleport to
@@ -86,7 +88,7 @@ public class TeleportController : MonoBehaviour
     {
         SteamVR_Fade.View(Color.black, 0.5f);
         yield return teleport_duration;
-        CameraRig.transform.position = hit.point;
+        transform.position = hit.point;
         SteamVR_Fade.View(Color.clear, 0.5f);  
     }
 }
