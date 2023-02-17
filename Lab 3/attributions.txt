@@ -1,0 +1,11 @@
+1) I've completed this statement by myself entirely.
+2) I've recieved verbal/minor help from _________________
+3) I've recieved major help/code from ______________________
+
+//	Playground Low Poly by ArtStudios3d licenced under Unity-EULA
+//	https://assetstore.unity.com/packages/3d/environments/playground-low-poly-191533
+//	https://unity.com/legal/as-terms
+
+//	SciFi Handlight Free [HQ, Lowpoly, PBR] by rastleks assets licenced under Unity-EULA
+//	https://assetstore.unity.com/packages/3d/props/scifi-handlight-free-hq-lowpoly-pbr-53498
+//	https://unity.com/legal/as-terms

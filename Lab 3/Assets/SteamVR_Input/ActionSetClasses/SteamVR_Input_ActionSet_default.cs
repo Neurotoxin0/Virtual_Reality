@@ -41,11 +41,11 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean GrabGrip
+        public virtual SteamVR_Action_Boolean Grip
         {
             get
             {
-                return SteamVR_Actions.default_GrabGrip;
+                return SteamVR_Actions.default_Grip;
             }
         }
         
@@ -102,6 +102,22 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.default_SnapTurnRight;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean UpdateLaser
+        {
+            get
+            {
+                return SteamVR_Actions.default_UpdateLaser;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean Grab
+        {
+            get
+            {
+                return SteamVR_Actions.default_Grab;
             }
         }
         
