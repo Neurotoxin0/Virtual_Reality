@@ -5,7 +5,7 @@ using Valve.VR;
 
 public class InteractController : MonoBehaviour
 {
-    public float BreakForce = 10f;
+    public float BreakForce = 20f;
     public SteamVR_Action_Boolean ControllerTrigger;
     public SteamVR_Action_Boolean ControllerGrip;
 
@@ -52,7 +52,7 @@ public class InteractController : MonoBehaviour
                 // Interactable item state control
                 if (interactable_item.GetComponent<LightController>() != null)  // is a flashlight
                 { 
-                    if (ControllerGrip.stateDown)
+                    if (ControllerGrip.stateDown) // button pressed to de/activate the item
                     {
                         //Debug.Log("Send Light Message");
                         GameObject.Find("HandLight").SendMessage("Switch_Power_State");
@@ -60,23 +60,26 @@ public class InteractController : MonoBehaviour
                     }
                 }
             }
-            if (ControllerTrigger.stateUp && is_grabbing)
+            if (ControllerTrigger.stateUp && is_grabbing) // released the trigger button
             {
                 hover_point.connectedBody = null;
-
-                Vector3 angular = behavior.GetAngularVelocity();
-                float angular_magnitude = angular.magnitude;
-                Vector3 velocity = behavior.GetVelocity();
-                float velocity_magnitude = velocity.magnitude;
-                //Debug.Log("angular: " + angular + ", mag: " + angular_magnitude);
-                //Debug.Log("vel: " + velocity + ", mag: " + velocity_magnitude);
-
-                //interactable_item.GetComponent<Rigidbody>().AddForce(-angular.normalized * velocity_magnitude, ForceMode.Impulse);
-                interactable_item.GetComponent<Rigidbody>().velocity = -angular.normalized * velocity_magnitude;
-
+                Throw();
                 is_grabbing = false;
             }
         }
+    }
+
+    private void Throw()
+    {
+        Vector3 angular = behavior.GetAngularVelocity();
+        float angular_magnitude = angular.magnitude;
+        Vector3 velocity = behavior.GetVelocity();
+        float velocity_magnitude = velocity.magnitude;
+        //Debug.Log("angular: " + angular + ", mag: " + angular_magnitude);
+        //Debug.Log("vel: " + velocity + ", mag: " + velocity_magnitude);
+
+        //interactable_item.GetComponent<Rigidbody>().AddForce(-angular.normalized * velocity_magnitude, ForceMode.Impulse);
+        interactable_item.GetComponent<Rigidbody>().velocity = -angular.normalized * velocity_magnitude;
     }
 
     //private void OnTriggerEnter(Collider other) { Debug.Log("enter"); }
@@ -96,5 +99,10 @@ public class InteractController : MonoBehaviour
         valid_interactable_item = false;
     }
 
-    //private void OnJointBreak(float breakForce) Debug.Log(breakForce);
+    private void OnJointBreak(float breakForce)
+    {
+        interactable_item = null; 
+        valid_interactable_item = false; 
+        is_grabbing = false;
+    }
 }

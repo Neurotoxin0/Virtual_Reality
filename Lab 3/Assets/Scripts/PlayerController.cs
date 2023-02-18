@@ -52,7 +52,7 @@ public class TeleportController : MonoBehaviour
             laser.SetPosition(1, hit.point);
 
             // if is pointing ground
-            if (hit.collider.tag == "Ground" && hit.point.y > 0)
+            if (hit.collider.tag == "Ground" && hit.point.y > 0) // second condition prevents few extreme conditions
             {
                 Set_Teleport_Conditions(true);
                 return;
