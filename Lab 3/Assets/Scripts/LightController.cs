@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
+    private Material mat; 
     private bool state;
-    private Material mat;
 
     void Start()
     {
+        mat = GetComponent<Renderer>().material; 
         state = false;
-        mat = GetComponent<Renderer>().material;
     }
 
     void Switch_Power_State()

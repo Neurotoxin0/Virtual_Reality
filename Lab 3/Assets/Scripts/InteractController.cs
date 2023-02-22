@@ -5,19 +5,19 @@ using Valve.VR;
 
 public class InteractController : MonoBehaviour
 {
-    public float BreakForce = 20f;
     public SteamVR_Action_Boolean ControllerTrigger;
-    public SteamVR_Action_Boolean ControllerGrip;
+    public SteamVR_Action_Boolean ControllerGrip; 
+    public float BreakForce = 20f;
 
-    private bool valid_interactable_item, is_grabbing;
     private GameObject interactable_item;
     private FixedJoint hover_point;
     private SteamVR_Behaviour_Pose behavior;
+    private bool valid_interactable_item, is_grabbing;
 
     void Start()
     {
+        hover_point = GetComponent<FixedJoint>(); 
         behavior = GetComponent<SteamVR_Behaviour_Pose>();
-        hover_point = GetComponent<FixedJoint>();
         valid_interactable_item = false;
         is_grabbing = false;
     }
