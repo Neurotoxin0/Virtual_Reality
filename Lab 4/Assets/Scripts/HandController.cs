@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
+
+[RequireComponent(typeof(LineRenderer))]
 
 public class HandController : MonoBehaviour
 {
+    public CustomInteractable heldItem { get; private set; }
     public SteamVR_Action_Boolean ControllerGrip; 
     public SteamVR_Action_Boolean ControllerTrigger; 
-    public Interactable heldItem;
     public float laserRange = 10f;
 
     private LineRenderer laser;
     private RaycastHit hit;
+    private CustomInteractable lastInteractable;
 
     void Start()
     {
@@ -21,7 +26,6 @@ public class HandController : MonoBehaviour
         if (gameObject.layer != LayerMask.NameToLayer("Controllers")) Debug.LogError("Controllers should be in 'Controllers' Collision Layer");
 
         laser = GetComponent<LineRenderer>();
-
     }
 
     void Update()
@@ -36,6 +40,7 @@ public class HandController : MonoBehaviour
         if (ControllerTrigger.stateUp && heldItem) heldItem.DetachFromController();
     }
 
+
     private void Update_Laser()
     {
         laser.SetPosition(0, transform.position);
@@ -43,66 +48,51 @@ public class HandController : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit, laserRange)) // if hit something
         {
             laser.SetPosition(1, hit.point);
-
-            // if is pointing interactable obj
-            if (hit.collider.tag == "Interactable")
-            {
-                // TODO
-            }
+            OnTriggerEnter(hit.collider);
         }
         else    // hit nothing
         {
             laser.SetPosition(1, transform.position + transform.forward * laserRange);
+            if (lastInteractable) OnTriggerExit();
         }
     }
 
-    public void OnItemDetach(Interactable item)
-    {
-        heldItem = null;
-    }
+    public void OnItemDetach(CustomInteractable item) { heldItem = null; }
 
-    //Send HoverEnter message to Interactable
     private void OnTriggerEnter(Collider other)
     {
-        // The collider we collided with may not be the root object of the interactable.
-        // We assume that the rigidbody is.
-        if (other.attachedRigidbody == null) return;
-        
-        var interactable = other.attachedRigidbody.GetComponent<Interactable>();
-        if (interactable == null) return;
-
-        if (heldItem == interactable) return;
-
-        interactable.OnHoverEnter(this);
+        CustomInteractable interactable = other.GetComponent<CustomInteractable>();
+        if (interactable)
+        {
+            if (interactable == lastInteractable) OnTriggerStay();
+            else
+            {
+                if (lastInteractable != null)
+                {
+                    OnTriggerExit();
+                }
+                lastInteractable = interactable;
+                lastInteractable.OnHoverEnter(this);
+            }
+        }
+        else if (lastInteractable) OnTriggerExit();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay()
     {
-        if (other.attachedRigidbody == null) return;
-
-        var interactable = other.attachedRigidbody.GetComponent<Interactable>();
-        if (interactable == null) return;
-
-        if (heldItem == interactable) return;
+       lastInteractable.OnHoverStay(this);
 
         // Start Interacting 
         if (ControllerTrigger.stateDown)
         {
-            if (interactable.AttachToController(this)) heldItem = interactable;
+            bool state = lastInteractable.AttachToController(this);
+            if (state) heldItem = lastInteractable;
         }
-        else interactable.OnHoverStay(this);
     }
 
-    //Send HoverExit message to Interactable
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit()
     {
-        if (other.attachedRigidbody == null) return;
-
-        var interactable = other.attachedRigidbody.GetComponent<Interactable>();
-        if (interactable == null) return;
-
-        if (heldItem == interactable) return;
-
-        interactable.OnHoverStay(this);
+        lastInteractable.OnHoverExit(this);
+        lastInteractable = null;
     }
 }

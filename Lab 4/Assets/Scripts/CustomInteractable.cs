@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 
-public abstract class Interactable : MonoBehaviour
+public class CustomInteractable : MonoBehaviour
 {
     public HandController attachedController { get; private set; }
 
@@ -20,26 +20,23 @@ public abstract class Interactable : MonoBehaviour
 
     public bool AttachToController(HandController controller)
     {
-        if (controller.heldItem != null) return false;  // already holding item
+        if (controller.heldItem != null) return false;  // controller already holding item
 
         //Steal object from other controller.
         if (attachedController != null) DetachFromController();
         attachedController = controller;
 
         OnBeginInteraction();
-
-        // Perhaps DetachController was called from OnBeginInteraction.
-        if (attachedController == null) return false;
         return true;
     }
 
     public void DetachFromController()
     {
-        OnEndInteraction();
-
         if (attachedController.heldItem == this) attachedController.OnItemDetach(this);
         else Debug.LogError("Controller state (HeldItem) was incorrect. Tried to detach " + this + " while holding " + attachedController.heldItem);
         attachedController = null;
+
+        OnEndInteraction();
     }
 
     //Called when the user begins interacting with this object. 
