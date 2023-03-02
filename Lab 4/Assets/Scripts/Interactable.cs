@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 
-public class CustomInteractable : MonoBehaviour
+public class Interactable : MonoBehaviour
 {
     public HandController attachedController { get; private set; }
 

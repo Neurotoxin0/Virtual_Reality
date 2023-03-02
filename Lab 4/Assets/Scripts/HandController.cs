@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using Valve.VR;
-using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(LineRenderer))]
 
 public class HandController : MonoBehaviour
 {
-    public CustomInteractable heldItem { get; private set; }
+    public Interactable heldItem { get; private set; }
 
     public SteamVR_Action_Boolean ControllerGrip; 
     public SteamVR_Action_Boolean ControllerTrigger; 
@@ -18,8 +17,8 @@ public class HandController : MonoBehaviour
 
     private LineRenderer laser;
     private RaycastHit hit;
-    private CustomInteractable lastInteractable;
-    public TextMeshProUGUI status;
+    private Interactable lastInteractable;
+    private TextMeshProUGUI status;
 
     void Start()
     {
@@ -51,8 +50,8 @@ public class HandController : MonoBehaviour
 
     private void UpdateCanvas()
     {
-        var holdingItem = (heldItem) ? heldItem.gameObject.name : "Empty";
-        var pointingItem = (lastInteractable) ? lastInteractable.gameObject.name : "Empty";
+        string holdingItem = (heldItem) ? heldItem.gameObject.name : "Empty";
+        string pointingItem = (lastInteractable) ? lastInteractable.gameObject.name : "Empty";
         status.text = "Held Item: " + holdingItem + "\nIs Pointing To: " + pointingItem;
     }
 
@@ -63,54 +62,36 @@ public class HandController : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit, laserRange)) // if hit something
         {
             laser.SetPosition(1, hit.point);
-            OnTriggerEnter(hit.collider);
+
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            if (interactable)
+            {
+                if (lastInteractable == null)
+                {
+                    lastInteractable = interactable;
+                    OnLaserEnter();
+                }
+                else if (interactable == lastInteractable) OnLaserStay();
+                else
+                {
+                    OnLaserExit();
+                    lastInteractable = interactable;
+                    OnLaserEnter();
+                }
+
+            }
+            else
+            {
+                if (lastInteractable) OnLaserExit();
+                if (ControllerTrigger.stateDown) Detach();  // detach by pointing to spmething not interactable; i.e. table
+            }
         }
         else    // hit nothing
         {
             laser.SetPosition(1, transform.position + transform.forward * laserRange);
-            if (lastInteractable) OnTriggerExit();
+
+            if (lastInteractable) OnLaserExit();
             if (ControllerTrigger.stateDown) Detach();  // detach by pointing to nothing
-        }
-    }
-
-    public void OnItemDetach(CustomInteractable item) 
-    { 
-        if (heldItem == item) heldItem = null;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        CustomInteractable interactable = other.GetComponent<CustomInteractable>();
-        if (interactable)
-        {
-            if (interactable == lastInteractable) OnTriggerStay();
-            else
-            {
-                OnTriggerExit();
-
-                lastInteractable = interactable;
-                interactable.OnHoverEnter(this);
-            }
-        }
-        else
-        {
-            if (lastInteractable) OnTriggerExit();
-            if (ControllerTrigger.stateDown) Detach();  // detach by pointing to spmething not interactable; i.e. table
-        }
-    }
-
-    private void OnTriggerStay()
-    {
-        lastInteractable.OnHoverStay(this);
-        if (ControllerTrigger.stateDown) Interact();
-    }
-
-    private void OnTriggerExit()
-    {
-        if (lastInteractable != null)
-        {
-            lastInteractable.OnHoverExit(this);
-            lastInteractable = null;
         }
     }
 
@@ -133,5 +114,49 @@ public class HandController : MonoBehaviour
     {
         if (heldItem) heldItem.DetachFromController();
         //heldItem = null; -> OnItemDetach() will be invoked
+    }
+
+    public void OnItemDetach(Interactable item) 
+    { 
+        if (heldItem == item) heldItem = null;
+    }
+
+    private void OnLaserEnter()
+    {
+        //Debug.Log("HAND OnLaserEnter");
+        lastInteractable.OnHoverEnter(this);
+    }
+
+    private void OnLaserStay()
+    {
+        //Debug.Log("HAND OnLaserStay"); 
+        lastInteractable.OnHoverStay(this);
+        if (ControllerTrigger.stateDown) Interact();
+    }
+
+    private void OnLaserExit()
+    {
+        //Debug.Log("HAND OnLaserExit"); fr
+
+        if (lastInteractable != null)
+        {
+            lastInteractable.OnHoverExit(this);
+            lastInteractable = null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("HAND OnTriggerEnter");
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //Debug.Log("HAND OnTriggerStay");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //Debug.Log("HAND OnTriggerExit");
     }
 }

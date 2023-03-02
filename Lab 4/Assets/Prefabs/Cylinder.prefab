@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2902549458629135219}
   - component: {fileID: 1588922774029298267}
   - component: {fileID: 2510901282812441130}
-  - component: {fileID: 3481927898631860732}
+  - component: {fileID: 1388682208236973987}
   m_Layer: 7
   m_Name: Cylinder
   m_TagString: Interactables
@@ -116,7 +116,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3481927898631860732
+--- !u!114 &1388682208236973987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
