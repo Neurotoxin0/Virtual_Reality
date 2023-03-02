@@ -8,6 +8,8 @@ public class CustomInteractable : MonoBehaviour
 {
     public HandController attachedController { get; private set; }
 
+    private Material mat;
+
     void Start()
     {
         // To make sure we only collide with the actual handles and knobs, We'll use the collisionMatrix.
@@ -15,6 +17,7 @@ public class CustomInteractable : MonoBehaviour
         // We can then restrict collisions in Edit->ProjectSettings->Physics 
         if (gameObject.layer != LayerMask.NameToLayer("Interactables")) Debug.LogError("Interactables should be in 'Interactables' Collision Layer");
 
+        mat = GetComponent<Renderer>().material;
     }
 
 
@@ -39,35 +42,31 @@ public class CustomInteractable : MonoBehaviour
         OnEndInteraction();
     }
 
-    //Called when the user begins interacting with this object. 
     protected virtual void OnBeginInteraction()
     {
-        Debug.Log("Begin Interaction");
+        //Debug.Log("Begin Interaction");
+        mat.color = Color.yellow;
     }
 
-    //Called  when the user stops interacting with this object. 
     protected virtual void OnEndInteraction()
     {
-        Debug.Log("End Interaction");
+        //Debug.Log("End Interaction");
+        mat.color = Color.white;
     }
 
-    //No need for OnInteractionStay. You can issue updates for your object in Update() and check if attachedController is null;
 
-    //Called by WandController when an unattached controller overlaps this object's collider.
     public virtual void OnHoverEnter(HandController controller) 
     {
-        Debug.Log("Hover Enter");
+        //Debug.Log("Hover Enter");
     }
 
-    //Called by WandController when an unattached controller overlaps this object's collider.
     public virtual void OnHoverExit(HandController controller)
     {
-        Debug.Log("Hover Exit");
+        //Debug.Log("Hover Exit");
     }
 
-    //Called by WandController on each frame an unattached controller overlaps this object's collider.
     public virtual void OnHoverStay(HandController controller)
     {
-        Debug.Log("Hover Stay");
+        //Debug.Log("Hover Stay");
     }
 }
