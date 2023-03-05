@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
+using Valve.VR;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 
@@ -18,6 +18,7 @@ public class ButtonController : MonoBehaviour
     public ButtonEvent buttonEvent;
 
     private HandController controller;
+    private HapticController haptic;
     private Interactable item;
     private Color itemColor;
     private Material mat;
@@ -120,12 +121,13 @@ public class ButtonController : MonoBehaviour
 
             buttonColor = Color.green;
             isActivated = true;
-
+            haptic.Pulse(0.5f, 100, 100, controller);
         }
         else
         {
             buttonColor = Color.red;
             isActivated = false;
+            haptic.Pulse(0.5f, 100, 100, controller);
 
             // reset state
             stringBuffer = "";
@@ -154,7 +156,8 @@ public class ButtonController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("BUTTON OnTriggerEnter");
-        controller = other.GetComponent<HandController>(); 
+        controller = other.GetComponent<HandController>();
+        haptic = controller.GetComponent<HapticController>();
         item = controller.heldItem;
         
         if (controller.ControllerThumbstick.state && item && !isPressed) // prevent continous triggering invoke function

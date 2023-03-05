@@ -3,17 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.GraphicsBuffer;
 
-public class LeverController : MonoBehaviour
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
+
+public class ValveController : MonoBehaviour
 {
-    [Header("Configuration")] 
-    public int leverIndex = -1;
+    [Header("Configuration")]
+    public int valveIndex = -1;
     public bool isSpring = false;
-    //[Range(1, 5)] public float debug = 1;
-    [Header("Events")] 
+    [Range(1, 5)] public float debug = 1;
+    [Header("Events")]
     public UnityEvent onPress;
     public UnityEvent onRelease;
-    public LeverEvent leverEvent;
+    public ValveEvent valveEvent;
 
     private Interactable item;
     private Color itemColor;
@@ -27,37 +30,38 @@ public class LeverController : MonoBehaviour
     {
         isActivated = false;
         boundary = 0.5f;    // depends on the length of base
-        value = transform.localPosition.x;  // default: 0
+        value = transform.localRotation.z; // default: 0
     }
 
     void Update()
     {
         // check value change
-        value = transform.localPosition.x; // range: -0.5 <-> 0.5
+        value = transform.localRotation.z; // range: 1 <-> 0 <-> -1 (REM reverse range before use!!!)
 
-        if (isActivated) LeverAction();
+        if (isActivated) ValveAction();
         else
         {
             if (isSpring && value != 0)  // if is spring lever and released
             {
                 // lerp issue: infinitely close to 0 resulting infinite invoke -> hard reset when reach a point
-                if (Mathf.Abs(value) <= 0.01)       value = 0;
-                else                                value = Mathf.Lerp(value, 0, 0.75f * Time.deltaTime);
+                if (Mathf.Abs(value) <= 0.01) value = 0;
+                else value = Mathf.Lerp(value, 0, 0.75f * Time.deltaTime);
 
-                transform.localPosition = new Vector3(value, transform.localPosition.y, transform.localPosition.z);
-                LeverAction();
+                transform.localEulerAngles = new Vector3(0, 0, -(value) * 360);
+                //transform.localPosition = new Vector3(value, transform.localPosition.y, transform.localPosition.z);
+                ValveAction();
             }
         }
     }
 
-    private void LeverAction()
+    private void ValveAction()
     {
-        float convertedValue = value + 0.5f;  // change value range from -0.5 <-> 0.5 to: 0 <-> 1
+        float convertedValue = (-value+1)/2;  // change value range from 1 <-> 0 <-> -1 to: 0 <-> 0.5 <-> 1
         //Debug.Log("convertedValue: " + convertedValue);
 
         stringBuffer = "";  // store action results, used by leverEvent.Invoke()
 
-        switch (leverIndex)
+        switch (valveIndex)
         {
             case 1:
                 ChangeScale(convertedValue);
@@ -67,16 +71,15 @@ public class LeverController : MonoBehaviour
                 break;
             default:
                 // Default: do all actions !!!
-                ChangeTransparency(convertedValue); 
+                ChangeTransparency(convertedValue);
                 ChangeColor(convertedValue);
                 ChangeScale(convertedValue);
                 ChangeRotateSpeed(convertedValue);
                 break;
         }
 
-        leverEvent.Invoke(controller, stringBuffer.Trim());
+        valveEvent.Invoke(controller, stringBuffer.Trim());
     }
-
     private void ChangeTransparency(float value)
     {
         itemColor = new Color(itemColor.r, itemColor.g, itemColor.b, value);
@@ -84,7 +87,7 @@ public class LeverController : MonoBehaviour
 
         stringBuffer += "Transparency: " + value + "\n ";
     }
-    
+
     private void ChangeColor(float value)
     {
         float rgb = 255 * value / 100;
@@ -113,10 +116,10 @@ public class LeverController : MonoBehaviour
                         "Rotate Ratio: " + rotateRatio + "\n ";
     }
 
-
+    private float offset;
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("LEVER OnTriggerEnter");
+        //Debug.Log("VALVE OnTriggerEnter");
         controller = other.GetComponent<HandController>();
         haptic = controller.GetComponent<HapticController>();
         item = controller.heldItem;
@@ -124,26 +127,26 @@ public class LeverController : MonoBehaviour
         if (item & !isPressed)
         {
             itemColor = item.GetComponent<Renderer>().material.color;
+            
             isPressed = true;
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        //Debug.Log("LEVER OnTriggerStay: " + other.name);
+        //Debug.Log("VALVE OnTriggerStay: " + other.name);
 
         if (controller.ControllerThumbstick.state && isPressed)
         {
             isActivated = true;
 
-            float offset = transform.InverseTransformPoint(other.transform.position).x;     // position offset between controller & lever
-            float targetX = Mathf.Lerp(transform.localPosition.x, transform.localPosition.x+offset, 0.75f * Time.deltaTime);
-            targetX = Mathf.Clamp(targetX, -boundary, boundary);    // boundaries limitation
-            if (Mathf.Abs(targetX) == boundary) haptic.Pulse(0.5f, 100, 100, controller);
+            Quaternion offset = Quaternion.Inverse(other.transform.rotation);   // angle offset between controller & lever
+            float targetZ = offset.z;
+            targetZ = Mathf.Clamp(targetZ, -boundary, boundary);    // boundaries limitation
+            if (Mathf.Abs(targetZ) == boundary) haptic.Pulse(0.5f, 100, 100, controller);
 
-            Vector3 targetPosition = new Vector3(targetX, transform.localPosition.y, transform.localPosition.z);    // only x-axis adjustment
-            //Debug.Log("offset: " + offset + " current pos: " + transform.localPosition + " targetPosition: " + targetPosition);
-            transform.localPosition = targetPosition;
+            transform.localEulerAngles = new Vector3(0, 0, -targetZ *360);  // to adjust range to -1 <-> 1
+
             onPress.Invoke();
         }
         else isActivated = false;
@@ -151,10 +154,10 @@ public class LeverController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //Debug.Log("LEVER OnTriggerExit");\
+        //Debug.Log("VALVE OnTriggerExit");\
         isActivated = false;
-        isPressed = false; 
+        isPressed = false;
         onRelease.Invoke();
     }
 }
-[Serializable] public class LeverEvent : UnityEvent<HandController, string> { }
+[Serializable] public class ValveEvent : UnityEvent<HandController, string> { }

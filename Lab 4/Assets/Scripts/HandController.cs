@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Valve.VR;
 using UnityEngine.Events;
-using System;
 
 [RequireComponent(typeof(LineRenderer), typeof(Rigidbody), typeof(Collider))]
+[RequireComponent(typeof(HapticController))]
 
 public class HandController : MonoBehaviour
 {
