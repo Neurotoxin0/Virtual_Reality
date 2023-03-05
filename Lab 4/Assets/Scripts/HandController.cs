@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Valve.VR;
+using UnityEngine.Events;
+using System;
 
 [RequireComponent(typeof(LineRenderer), typeof(Rigidbody), typeof(Collider))]
 
@@ -10,10 +12,13 @@ public class HandController : MonoBehaviour
 {
     public Interactable heldItem { get; private set; }
 
+    [Header("Configuration")]
     public SteamVR_Action_Boolean ControllerGrip; 
     public SteamVR_Action_Boolean ControllerTrigger; 
     public SteamVR_Action_Boolean ControllerThumbstick;
     public float laserRange = 10f;
+    [Header("Events")]
+    public UnityEvent onSelect;
 
     private LineRenderer laser;
     private RaycastHit hit;
@@ -95,10 +100,12 @@ public class HandController : MonoBehaviour
 
     private void Interact()
     {
+        // select item
         if (lastInteractable != heldItem)   // already held item -> detach old obj + attach new obj
         {
             Detach();
             Attach();
+            onSelect.Invoke();
         }
     }
 

@@ -1,27 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MonitorController : MonoBehaviour
 {
     private GameObject cameraRig, leftController, rightController;
     private Interactable itemLeft, itemRight;
-    private TextMeshProUGUI statusLeft, statusRight;
+    private TextMeshProUGUI headerLeft, headerRight, textLeft, textRight;
 
     void Start()
     {
-        statusLeft = transform.Find("TextLeft").gameObject.GetComponent<TextMeshProUGUI>();
-        statusRight = transform.Find("TextRight").gameObject.GetComponent<TextMeshProUGUI>();
+        headerLeft = transform.Find("HeaderLeft").gameObject.GetComponent<TextMeshProUGUI>();
+        headerRight = transform.Find("HeaderRight").gameObject.GetComponent<TextMeshProUGUI>();
+        textLeft = transform.Find("TextLeft").gameObject.GetComponent<TextMeshProUGUI>();
+        textRight = transform.Find("TextRight").gameObject.GetComponent<TextMeshProUGUI>();
+
         cameraRig = GameObject.Find("[CameraRig]");
         leftController  = cameraRig.transform.Find("Controller (left)").gameObject;
         rightController = cameraRig.transform.Find("Controller (right)").gameObject;
-    }
-
-    void Update()
-    {
-        UpdateItem(); 
-        UpdateCanvas();
     }
 
     
@@ -29,19 +28,23 @@ public class MonitorController : MonoBehaviour
     {
         itemLeft = leftController.GetComponent<HandController>().heldItem;
         itemRight = rightController.GetComponent<HandController>().heldItem;
-    }
-    
-    private void UpdateCanvas()
-    {
-        statusLeft.text  = "Left: \n"  + Status(itemLeft);
-        statusRight.text = "Right: \n" + Status(itemRight);
+        headerLeft.text = "Left: " + ((itemLeft) ? itemLeft.name : "Empty");
+        headerRight.text = "Right: " + ((itemRight) ? itemRight.name : "Empty");
     }
 
-    private string Status(Interactable item)
-    {
-        if (item == null) return "Empty";
 
-        string color = item.GetComponent<Renderer>().material.color.ToString();
-        return color;
+    public void OnItemChange() 
+    {
+        //Debug.Log("MONITOR OnItemChange");
+        UpdateItem(); 
     }
+
+    public void OnValueChange(HandController controller, string str) 
+    { 
+        //Debug.Log("MONITOR OnValueChange: " + controller.name + " / " + str);
+
+        if (controller.name == leftController.name) textLeft.text = str;
+        else                                        textRight.text = str;
+    }
+
 }

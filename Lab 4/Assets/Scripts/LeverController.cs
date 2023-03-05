@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class LeverController : MonoBehaviour
 {
@@ -13,44 +14,37 @@ public class LeverController : MonoBehaviour
     [Header("Events")] 
     public UnityEvent onPress;
     public UnityEvent onRelease;
-    public UnityEvent onValueChanged;
+    public LeverEvent leverEvent;
 
     private Interactable item;
     private Color itemColor;
     private HandController controller;
     private bool isPressed, isActivated;
-    private float boundary, currentValue, rerordValue, originalYCoods;
+    private float boundary, value, originalYCoods;
+    private string stringBuffer;
 
     void Start()
     {
         isActivated = false;
         boundary = 0.5f;    // depends on the length of base
-        currentValue = 0;
-        rerordValue = currentValue;
+        value = 0;
     }
 
     void Update()
     {
         // check value change
-        currentValue = transform.localPosition.x; // range: -0.5 <-> 0.5
-
-        if (currentValue != rerordValue)
-        {
-            rerordValue = currentValue;
-            onValueChanged.Invoke();
-        }
+        value = transform.localPosition.x; // range: -0.5 <-> 0.5
 
         if (isActivated) LeverAction();
         else
         {
-            if (isSpring && currentValue != 0)  // if is spring lever and released
+            if (isSpring && value != 0)  // if is spring lever and released
             {
-                // lerp issue: infinitely close to 0 -> faster lerp + hard reset when reach a point
-                if (Mathf.Abs(currentValue) <= 0.01)        currentValue = Mathf.Lerp(currentValue, 0, Time.deltaTime);
-                else if (Mathf.Abs(currentValue) <= 0.005)  currentValue = 0;   
-                else                                        currentValue = Mathf.Lerp(currentValue, 0, 0.75f * Time.deltaTime);
+                // lerp issue: infinitely close to 0 resulting infinite invoke -> hard reset when reach a point
+                if (Mathf.Abs(value) <= 0.01)       value = 0;
+                else                                value = Mathf.Lerp(value, 0, 0.75f * Time.deltaTime);
 
-                transform.localPosition = new Vector3(currentValue, transform.localPosition.y, transform.localPosition.z);
+                transform.localPosition = new Vector3(value, transform.localPosition.y, transform.localPosition.z);
                 LeverAction();
             }
         }
@@ -58,51 +52,65 @@ public class LeverController : MonoBehaviour
 
     private void LeverAction()
     {
-        float value = currentValue + 0.5f;  // change value range from -0.5 <-> 0.5 to: 0 <-> 1
+        float convertedValue = value + 0.5f;  // change value range from -0.5 <-> 0.5 to: 0 <-> 1
         //Debug.Log("currentValue: " + currentValue + " value: " + value);
+        
+        stringBuffer = "";  // store action results, used by leverEvent.Invoke()
 
         switch (leverIndex)
         {
             case 1:
-                ChangeScale(value);
+                ChangeScale(convertedValue);
                 break;
             case 2:
-                ChangeRotateSpeed(value);
+                ChangeRotateSpeed(convertedValue);
                 break;
             default:
                 // Default: do all actions !!!
-                ChangeColor(value);
-                ChangeTransparency(value);
-                ChangeScale(value);
-                ChangeRotateSpeed(value);
+                ChangeTransparency(convertedValue); 
+                ChangeColor(convertedValue);
+                ChangeScale(convertedValue);
+                ChangeRotateSpeed(convertedValue);
                 break;
         }
-    }
 
-    private void ChangeColor(float value)
-    {
-        float rgb = 255 * value / 100;
-        itemColor = new Color(rgb, rgb, rgb, itemColor.a);
-        item.GetComponent<Renderer>().material.color = itemColor;
+        leverEvent.Invoke(controller, stringBuffer.Trim());
     }
 
     private void ChangeTransparency(float value)
     {
         itemColor = new Color(itemColor.r, itemColor.g, itemColor.b, value);
         item.GetComponent<Renderer>().material.color = itemColor;
+
+        stringBuffer += "Transparency: " + value + "\n ";
+    }
+    
+    private void ChangeColor(float value)
+    {
+        float rgb = 255 * value / 100;
+        itemColor = new Color(rgb, rgb, rgb, itemColor.a);
+        item.GetComponent<Renderer>().material.color = itemColor;
+
+        stringBuffer += "Color: " + itemColor + "\n ";
     }
 
     private void ChangeScale(float value)
     {
         float scaleRatio = value / 2;
         item.transform.localScale = Vector3.one * scaleRatio;
+
+        stringBuffer += "Scale: " + scaleRatio + "\n ";
     }
 
     private void ChangeRotateSpeed(float value)
     {
         RotateController rotateController = item.GetComponent<RotateController>();
-        rotateController.rotateRatio = value * 2;
         rotateController.isActivated = true;
+        float rotateRatio = value * 2;
+        rotateController.rotateRatio = rotateRatio;
+
+        stringBuffer += "Rotate: " + rotateController.isActivated + "\n " +
+                        "Rotate Ratio: " + rotateRatio + "\n ";
     }
 
 
@@ -148,4 +156,4 @@ public class LeverController : MonoBehaviour
         onRelease.Invoke();
     }
 }
-[Serializable] public class FloatEvent : UnityEvent<float> { }
+[Serializable] public class LeverEvent : UnityEvent<HandController, string> { }
