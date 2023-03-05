@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(PositionLimiter))]
 
 public class Interactable : MonoBehaviour
 {
@@ -35,25 +36,29 @@ public class Interactable : MonoBehaviour
 
     public void DetachFromController()
     {
-        if (attachedController.heldItem == this) attachedController.OnItemDetach(this);
+        if (attachedController.heldItem == this)
+        {
+            attachedController.OnItemDetach(this);
+            attachedController = null;
+        }
         else Debug.LogError("Controller state (HeldItem) was incorrect. Tried to detach " + this + " while holding " + attachedController.heldItem);
-        attachedController = null;
-
+        
         OnEndInteraction();
     }
+
 
     protected virtual void OnBeginInteraction()
     {
         //Debug.Log("Begin Interaction");
-        mat.color = Color.yellow;
+        mat.color = Color.yellow;   // hightlight
     }
 
     protected virtual void OnEndInteraction()
     {
         //Debug.Log("End Interaction");
-        mat.color = Color.white;
+        Color currentColor = GetComponent<Renderer>().material.color; 
+        if (currentColor == Color.yellow) mat.color = Color.white; // if no change to color was made -> return to default color
     }
-
 
     public virtual void OnHoverEnter(HandController controller) 
     {

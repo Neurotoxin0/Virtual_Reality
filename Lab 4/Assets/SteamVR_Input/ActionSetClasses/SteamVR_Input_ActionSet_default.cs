@@ -105,6 +105,22 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean ThumbstickLeft
+        {
+            get
+            {
+                return SteamVR_Actions.default_ThumbstickLeft;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean ThumbstickRight
+        {
+            get
+            {
+                return SteamVR_Actions.default_ThumbstickRight;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

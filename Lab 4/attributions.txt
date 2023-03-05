@@ -8,10 +8,6 @@
 //	https://assetstore.unity.com/packages/3d/props/furniture/table-162871
 //	https://unity3d.com/legal/as_terms
 
-//	
-	VR Buttons and Levers by UtilityFunction licenced under Unity-EULA
-//	https://assetstore.unity.com/packages/tools/physics/vr-buttons-and-levers-66520
-//	https://unity3d.com/legal/as_terms
-
-
-https://www.youtube.com/watch?v=lPPa9y_czlE
+//	How to make a VR Button | Unity Tutorial by Valem licenced under Standard YouTube Licenses
+//	https://www.youtube.com/watch?v=lPPa9y_czlE
+//	https://support.google.com/youtube/answer/2797468?hl=en

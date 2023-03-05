@@ -50,6 +50,14 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/ThumbstickLeft",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/ThumbstickRight",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -169,7 +177,9 @@
       "/actions/default/in/GripLeft": "GripLeft",
       "/actions/default/in/GripRight": "GripRight",
       "/actions/default/in/TriggerLeft": "TriggerLeft",
-      "/actions/default/in/TriggerRight": "TriggerRight"
+      "/actions/default/in/TriggerRight": "TriggerRight",
+      "/actions/default/in/ThumbstickLeft": "ThumbstickLeft",
+      "/actions/default/in/ThumbstickRight": "ThumbstickRight"
     }
   ]
 }

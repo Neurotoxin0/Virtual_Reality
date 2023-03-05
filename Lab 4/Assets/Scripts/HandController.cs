@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using Valve.VR;
 
-[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(LineRenderer), typeof(Rigidbody), typeof(Collider))]
 
 public class HandController : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class HandController : MonoBehaviour
 
     public SteamVR_Action_Boolean ControllerGrip; 
     public SteamVR_Action_Boolean ControllerTrigger; 
+    public SteamVR_Action_Boolean ControllerThumbstick;
     public float laserRange = 10f;
 
     private LineRenderer laser;
@@ -27,11 +27,9 @@ public class HandController : MonoBehaviour
         // We can then restrict collisions in Edit->ProjectSettings->Physics 
         if (gameObject.layer != LayerMask.NameToLayer("Controllers")) Debug.LogError("Controllers should be in 'Controllers' Collision Layer");
 
-        laser = GetComponent<LineRenderer>();
-
         GameObject canvas = gameObject.transform.Find("Canvas").gameObject;
         status = canvas.transform.Find("Text (TMP)").gameObject.GetComponent<TextMeshProUGUI>();
-        
+        laser = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -72,7 +70,7 @@ public class HandController : MonoBehaviour
                     OnLaserEnter();
                 }
                 else if (interactable == lastInteractable) OnLaserStay();
-                else
+                else // pointing to different obj
                 {
                     OnLaserExit();
                     lastInteractable = interactable;
@@ -83,7 +81,7 @@ public class HandController : MonoBehaviour
             else
             {
                 if (lastInteractable) OnLaserExit();
-                if (ControllerTrigger.stateDown) Detach();  // detach by pointing to spmething not interactable; i.e. table
+                if (ControllerTrigger.stateDown) Detach();  // detach by pointing to something not interactable; i.e. table, monitor
             }
         }
         else    // hit nothing
@@ -97,7 +95,7 @@ public class HandController : MonoBehaviour
 
     private void Interact()
     {
-        if (lastInteractable != heldItem)
+        if (lastInteractable != heldItem)   // already held item -> detach old obj + attach new obj
         {
             Detach();
             Attach();
@@ -113,8 +111,9 @@ public class HandController : MonoBehaviour
     private void Detach()
     {
         if (heldItem) heldItem.DetachFromController();
-        //heldItem = null; -> OnItemDetach() will be invoked
+        //heldItem = null; -> OnItemDetach() will be invoked and heldItem will be reset
     }
+
 
     public void OnItemDetach(Interactable item) 
     { 

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1588922774029298267}
   - component: {fileID: 2510901282812441130}
   - component: {fileID: 1388682208236973987}
+  - component: {fileID: 1160369295115728373}
+  - component: {fileID: 7062436953613072758}
   m_Layer: 7
   m_Name: Cylinder
   m_TagString: Interactables
@@ -111,7 +113,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -126,5 +128,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7d40119e50d9ae468887ceb3993872f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1160369295115728373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431809688297005321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135dc00f078975a48a6fcb1f31fab3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActivated: 0
+  rotateRatio: 0
+--- !u!114 &7062436953613072758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431809688297005321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33fabb3d5e44d34eb5cc4ac709940e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
