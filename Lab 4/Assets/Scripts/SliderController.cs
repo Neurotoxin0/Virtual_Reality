@@ -6,15 +6,14 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 
-public class ButtonController : MonoBehaviour
+public class SliderController : MonoBehaviour
 {
-    [Header("Configuration")] 
-    public int buttonIndex = -1; 
-    public GameObject button;
+    [Header("Configuration")]
+    public int buttonIndex = -1;
     [Header("Events")]
     public UnityEvent onPress;
     public UnityEvent onRelease;
-    public ButtonEvent buttonEvent;
+    public SliderEvent sliderEvent;
 
     private HandController controller;
     private HapticController haptic;
@@ -24,15 +23,15 @@ public class ButtonController : MonoBehaviour
     private bool isPressed, isActivated;
     private string stringBuffer;
 
-
     void Start()
     {
-        mat = button.GetComponent<Renderer>().material;
+        mat = GetComponent<Renderer>().material;
         isPressed = false;
         isActivated = false;
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (isActivated)
         {
@@ -41,14 +40,6 @@ public class ButtonController : MonoBehaviour
             // actions depend on button index
             switch (buttonIndex)
             {
-                case 1:
-                    LerpTransparency();
-                    LerpColor();
-                    break;
-                case 2:
-                    SwitchGravity();
-                    item.GetComponent<RotateController>().isActivated = false;
-                    break;
                 default:
                     // Default: do most of actions
                     LerpTransparency();
@@ -59,7 +50,7 @@ public class ButtonController : MonoBehaviour
                     break;
             }
 
-            buttonEvent.Invoke(controller, stringBuffer.Trim());
+            sliderEvent.Invoke(controller, stringBuffer.Trim());
         }
     }
 
@@ -71,7 +62,7 @@ public class ButtonController : MonoBehaviour
 
         stringBuffer += "Transparency: " + transparency + "\n ";
     }
-    
+
     private void LerpColor()
     {
         float transparency = itemColor.a;
@@ -86,7 +77,7 @@ public class ButtonController : MonoBehaviour
         Vector3 scale = Vector3.Lerp(Vector3.zero, Vector3.one, Mathf.PingPong(Time.time, 1));
         item.transform.localScale = scale;
 
-        stringBuffer += "Scale: " + scale + "\n "; 
+        stringBuffer += "Scale: " + scale + "\n ";
     }
 
     private void AlterRotate()
@@ -109,7 +100,7 @@ public class ButtonController : MonoBehaviour
                         "Rotate: " + item.GetComponent<RotateController>().isActivated + "\n ";
     }
 
-    public void ButtonTrigger()
+    public void SliderTrigger()
     {
         Color buttonColor;
 
@@ -119,12 +110,14 @@ public class ButtonController : MonoBehaviour
             itemColor = item.GetComponent<Renderer>().material.color;
 
             buttonColor = Color.green;
+            transform.localPosition = new Vector3(0.025f, 0.03f, 0);
             isActivated = true;
             haptic.Pulse(0.5f, 100, 100, controller);
         }
         else
         {
             buttonColor = Color.red;
+            transform.localPosition = new Vector3(-0.025f, 0.03f, 0);
             isActivated = false;
             haptic.Pulse(0.5f, 100, 100, controller);
 
@@ -136,16 +129,16 @@ public class ButtonController : MonoBehaviour
                 case 2:
                     item.GetComponent<Rigidbody>().useGravity = false;
                     stringBuffer += "Gravity: " + item.GetComponent<Rigidbody>().useGravity + "\n ";
-                    
+
                     break;
                 default:
                     item.GetComponent<RotateController>().isActivated = false;
                     stringBuffer += "Gravity: " + item.GetComponent<Rigidbody>().useGravity + "\n " +
-                                    "Rotate: " + item.GetComponent<RotateController>().isActivated + "\n "; 
+                                    "Rotate: " + item.GetComponent<RotateController>().isActivated + "\n ";
                     break;
             }
 
-            buttonEvent.Invoke(controller, stringBuffer.Trim());
+            sliderEvent.Invoke(controller, stringBuffer.Trim());
         }
 
         mat.color = buttonColor;    // To reflect button's current state
@@ -158,21 +151,19 @@ public class ButtonController : MonoBehaviour
         controller = other.GetComponent<HandController>();
         haptic = controller.GetComponent<HapticController>();
         item = controller.heldItem;
-        
+
         if (controller.ControllerThumbstick.state && item && !isPressed) // prevent continous triggering invoke function
         {
-            button.transform.localPosition = new Vector3(0, 0.015f, 0);
-            isPressed = true; 
-            onPress.Invoke();   // can directly call ButtonTrigger(), but use invoke() for better practice
+            isPressed = true;
+            onPress.Invoke();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         //Debug.Log("BUTTON OnTriggerExit");
-        button.transform.localPosition = new Vector3(0, 0.03f, 0);
         isPressed = false;
         onRelease.Invoke();
     }
 }
-[Serializable] public class ButtonEvent : UnityEvent<HandController, string> { }
+[Serializable] public class SliderEvent : UnityEvent<HandController, string> { }

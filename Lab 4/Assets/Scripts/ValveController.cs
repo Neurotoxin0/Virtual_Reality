@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 
@@ -41,14 +40,11 @@ public class ValveController : MonoBehaviour
         if (isActivated) ValveAction();
         else
         {
-            if (isSpring && value != 0)  // if is spring lever and released
+            if (isSpring && Mathf.Abs(value) > 0.05)  // if is spring lever and released
             {
                 // lerp issue: infinitely close to 0 resulting infinite invoke -> hard reset when reach a point
-                if (Mathf.Abs(value) <= 0.01) value = 0;
-                else value = Mathf.Lerp(value, 0, 0.75f * Time.deltaTime);
-
-                transform.localEulerAngles = new Vector3(0, 0, -(value) * 360);
-                //transform.localPosition = new Vector3(value, transform.localPosition.y, transform.localPosition.z);
+                value = Mathf.Lerp(value, 0, 0.1f * Time.deltaTime);
+                transform.Rotate(new Vector3(0, 0, 1), -value);
                 ValveAction();
             }
         }
@@ -65,9 +61,6 @@ public class ValveController : MonoBehaviour
         {
             case 1:
                 ChangeScale(convertedValue);
-                break;
-            case 2:
-                ChangeRotateSpeed(convertedValue);
                 break;
             default:
                 // Default: do all actions !!!
@@ -116,7 +109,7 @@ public class ValveController : MonoBehaviour
                         "Rotate Ratio: " + rotateRatio + "\n ";
     }
 
-    private float offset;
+
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("VALVE OnTriggerEnter");
@@ -146,7 +139,6 @@ public class ValveController : MonoBehaviour
             if (Mathf.Abs(targetZ) == boundary) haptic.Pulse(0.5f, 100, 100, controller);
 
             transform.localEulerAngles = new Vector3(0, 0, -targetZ *360);  // to adjust range to -1 <-> 1
-
             onPress.Invoke();
         }
         else isActivated = false;
