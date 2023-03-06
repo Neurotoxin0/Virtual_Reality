@@ -136,12 +136,12 @@ public class ButtonController : MonoBehaviour
                 case 2:
                     item.GetComponent<Rigidbody>().useGravity = false;
                     stringBuffer += "Gravity: " + item.GetComponent<Rigidbody>().useGravity + "\n ";
-                    
+                    break;
+                case -1:
+                    item.GetComponent<RotateController>().isActivated = false;
+                    stringBuffer += "Rotate: " + item.GetComponent<RotateController>().isActivated + "\n ";
                     break;
                 default:
-                    item.GetComponent<RotateController>().isActivated = false;
-                    stringBuffer += "Gravity: " + item.GetComponent<Rigidbody>().useGravity + "\n " +
-                                    "Rotate: " + item.GetComponent<RotateController>().isActivated + "\n "; 
                     break;
             }
 

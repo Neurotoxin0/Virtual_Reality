@@ -126,15 +126,11 @@ public class SliderController : MonoBehaviour
 
             switch (buttonIndex)
             {
-                case 2:
-                    item.GetComponent<Rigidbody>().useGravity = false;
-                    stringBuffer += "Gravity: " + item.GetComponent<Rigidbody>().useGravity + "\n ";
-
+                case -1:
+                    item.GetComponent<RotateController>().isActivated = false;
+                    stringBuffer += "Rotate: " + item.GetComponent<RotateController>().isActivated + "\n ";
                     break;
                 default:
-                    item.GetComponent<RotateController>().isActivated = false;
-                    stringBuffer += "Gravity: " + item.GetComponent<Rigidbody>().useGravity + "\n " +
-                                    "Rotate: " + item.GetComponent<RotateController>().isActivated + "\n ";
                     break;
             }
 
