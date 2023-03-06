@@ -20,6 +20,8 @@ public class MonitorController : MonoBehaviour
         cameraRig = GameObject.Find("[CameraRig]");
         leftController  = cameraRig.transform.Find("Controller (left)").gameObject;
         rightController = cameraRig.transform.Find("Controller (right)").gameObject;
+
+        UpdateItem();
     }
 
     
