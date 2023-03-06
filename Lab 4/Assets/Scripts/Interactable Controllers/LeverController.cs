@@ -16,7 +16,6 @@ public class LeverController : MonoBehaviour
     public LeverEvent leverEvent;
 
     private Interactable item;
-    private Color itemColor;
     private HandController controller;
     private HapticController haptic;
     private bool isPressed, isActivated;
@@ -60,57 +59,21 @@ public class LeverController : MonoBehaviour
         switch (leverIndex)
         {
             case 1:
-                ChangeScale(convertedValue);
+                stringBuffer += item.AlterColor(convertedValue);
                 break;
             case 2:
-                ChangeRotateSpeed(convertedValue);
+                stringBuffer += item.AlterRotate(convertedValue);
                 break;
             default:
                 // Default: do all actions !!!
-                ChangeTransparency(convertedValue); 
-                ChangeColor(convertedValue);
-                ChangeScale(convertedValue);
-                ChangeRotateSpeed(convertedValue);
+                stringBuffer += item.AlterTransparency(convertedValue);
+                stringBuffer += item.AlterColor(convertedValue);
+                stringBuffer += item.AlterScale(convertedValue);
+                stringBuffer += item.AlterRotate(convertedValue);
                 break;
         }
 
         leverEvent.Invoke(controller, stringBuffer.Trim());
-    }
-
-    private void ChangeTransparency(float value)
-    {
-        itemColor = new Color(itemColor.r, itemColor.g, itemColor.b, value);
-        item.GetComponent<Renderer>().material.color = itemColor;
-
-        stringBuffer += "Transparency: " + value + "\n ";
-    }
-    
-    private void ChangeColor(float value)
-    {
-        float rgb = 255 * value / 100;
-        itemColor = new Color(rgb, rgb, rgb, itemColor.a);
-        item.GetComponent<Renderer>().material.color = itemColor;
-
-        stringBuffer += "Color: " + itemColor + "\n ";
-    }
-
-    private void ChangeScale(float value)
-    {
-        float scaleRatio = value / 2;
-        item.transform.localScale = Vector3.one * scaleRatio;
-
-        stringBuffer += "Scale: " + scaleRatio + "\n ";
-    }
-
-    private void ChangeRotateSpeed(float value)
-    {
-        RotateController rotateController = item.GetComponent<RotateController>();
-        rotateController.isActivated = true;
-        float rotateRatio = value * 2;
-        rotateController.rotateRatio = rotateRatio;
-
-        stringBuffer += "Rotate: " + rotateController.isActivated + "\n " +
-                        "Rotate Ratio: " + rotateRatio + "\n ";
     }
 
 
@@ -123,7 +86,6 @@ public class LeverController : MonoBehaviour
 
         if (item & !isPressed)
         {
-            itemColor = item.GetComponent<Renderer>().material.color;
             isPressed = true;
         }
     }
