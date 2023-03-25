@@ -7,3 +7,7 @@
 //	Used Golf Club-Free by Alvarolopz98 licenced under Unity-EULA
 //	https://assetstore.unity.com/packages/3d/props/used-golf-club-free-201581
 //	https://unity3d.com/legal/as_terms
+//
+//	Table by MASH Virtual licenced under Unity-EULA
+//	https://assetstore.unity.com/packages/3d/props/furniture/table-162871
+//	https://unity3d.com/legal/as_terms
