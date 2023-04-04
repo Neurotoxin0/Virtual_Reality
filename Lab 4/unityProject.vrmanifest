@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.lab4.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "R:\\CPS 643\\Don\\Lab 4\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "D:\\LocalFile\\CPS 643\\Don\\Lab 4\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "Lab 4 [Testing]"
