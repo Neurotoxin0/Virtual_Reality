@@ -14,6 +14,7 @@ public class GolfBallController : MonoBehaviour
 
     void Update()
     {
-        
+        // check if fall of the course
+        if (transform.position.y < -2) Destroy(this, 2); 
     }
 }

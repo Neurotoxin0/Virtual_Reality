@@ -3,7 +3,7 @@ using UnityEngine;
 
 // on Scrreen.Panel
 
-public class CanvasController : MonoBehaviour
+public class CanvasController : TimeOut
 {
     private GameObject strikeCnt, golfBallCnt, timer, message;
 
@@ -16,13 +16,17 @@ public class CanvasController : MonoBehaviour
         //Debug.Log("CanvasController Start: " + strikeCnt + ", " + golfBallCnt + ", " + timer + ", " + message);
         message.SetActive(false);
 
-        GameObject.Find("Golf Club").gameObject.GetComponent<GolfClubController>().InvokeonStrikeEvent();
+        GameObject.Find("Golfclub").gameObject.GetComponent<GolfClubController>().InvokeonStrikeEvent();
         GameObject.Find("Player").gameObject.GetComponent<PlayerController>().InvokeonSpawnGolfBall();
     }
 
     void Update()
     {
-        
+        if (timeoutEnabled && timeout) 
+        {
+            message.SetActive(false);
+            ResetTimeOut();
+        }
     }
 
 
@@ -44,9 +48,10 @@ public class CanvasController : MonoBehaviour
         timer.GetComponent<TextMeshProUGUI>().text = "Timer: " + time;
     }
 
-    public void ShowMsg(string debug_text, string msg)
+    public void ShowMsg(string msg, int time)
     {
         message.GetComponent<TextMeshProUGUI>().text = msg;
-        message.SetActive(true);
+        message.SetActive(true); 
+        if (time > 0) SetTimeOut(time);
     }
 }

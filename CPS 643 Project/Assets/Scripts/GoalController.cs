@@ -24,12 +24,12 @@ public class GoalController : MonoBehaviour
     {
         //Debug.Log("HoleController Trigger by " + other.name);
 
-        if (other.gameObject.tag == "Golf Ball")
+        if (other.gameObject.tag == "Golfball")
         {
             //Debug.Log("Goal");
             Destroy(other.gameObject);
-            onGoal.Invoke(other.gameObject.name, "Level Passed");
+            onGoal.Invoke("Level Passed", -1);
         }
     }
 }
-[Serializable] public class GoalEvent : UnityEvent<string, string> { }
+[Serializable] public class GoalEvent : UnityEvent<string, int> { }

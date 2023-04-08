@@ -10,19 +10,24 @@ using System;
 public class PlayerController : LaserController
 {
     [Header("Configuration")]
-    public GameObject golfClub;
+    public GameObject golfClubInstance;
     public GameObject golfBallPrefab;
+    public GameObject golfBallPointerPrefab;
     public SteamVR_Action_Boolean showGolfClubButton;
     public SteamVR_Action_Boolean spawnGolfBallButton;
-    public SteamVR_Action_Boolean triggerButton;
+    public SteamVR_Action_Boolean showControlPanelButton;
+    public SteamVR_Action_Boolean leftTriggerButton;
+    public SteamVR_Action_Boolean rightTriggerButton;
 
     [Header("Events")]
     public SpawnEvent onSpawnGolfBall;
+    public PanelEvent onInteractWithUI;
 
     private Hand leftController, rightController;
+    private GameObject golfBallPointer;
     private int golfBallCount;  // how many left
     private bool showController, showHoverDetail;
-    private bool spawnMode, showClub;
+    private bool spawnMode, showClub, showPanel;
 
     void Start()
     {
@@ -30,13 +35,16 @@ public class PlayerController : LaserController
 
         leftController = Player.instance.leftHand;
         rightController = Player.instance.rightHand;
-        referenceObj = leftController.gameObject;  // use left hand to spawn golf ball; ref obj used by laser
+
+        // use left hand to spawn golf ball and right hand to interact with UI
+        golfBallPointer = Instantiate(golfBallPointerPrefab, leftController.gameObject.transform);
 
         golfBallCount = 5;
         showController = true;
         showHoverDetail = true;
         spawnMode = false;  // spawn golf ball
         showClub = true;
+        showPanel = false;
     }
 
     
@@ -49,20 +57,57 @@ public class PlayerController : LaserController
         // change status
         if (showGolfClubButton.stateDown) showClub = !showClub; 
         if (spawnGolfBallButton.stateDown) spawnMode = !spawnMode;
-        
+        if (showControlPanelButton.stateDown) showPanel = !showPanel;
 
+        // spawn golf ball
         if (spawnMode)
         {
-            UpdateLaser();
+            //Debug.Log("Spawn Mode");
+            
+            UpdateLaser(leftController.gameObject);
             laser.enabled = true;
 
-            if (hit.collider != null && hit.collider.gameObject.tag == "Ground" && triggerButton.stateDown)
+            if (hit.collider != null && hit.collider.gameObject.tag == "Ground")
             {
-                //Debug.Log("Spawn golf ball");
-                if (SpawnGolfBall()) spawnMode = false;
+                Vector3 pos = new Vector3(hit.point.x, (float)(hit.point.y + 0.5), hit.point.z);
+                golfBallPointer.transform.position = pos;
+                golfBallPointer.SetActive(true);
+
+                if (leftTriggerButton.stateDown)
+                {
+                    //Debug.Log("Spawn golf ball");
+                    bool state = SpawnGolfBall();
+                    if (state) spawnMode = false;   // turn off spawn mode when finish spawning
+                } 
+            }
+            else golfBallPointer.SetActive(false);
+        }
+        else
+        {
+            //laser.enabled = false;
+            golfBallPointer.SetActive(false);
+        }
+
+        // open the control panel
+        if (showPanel)
+        {
+            //Debug.Log("Show Panel");
+            
+            onInteractWithUI.Invoke("", true);
+            UpdateLaser(rightController.gameObject);
+            laser.enabled = true;
+
+            if (hit.collider != null && hit.collider.gameObject.name == "Control Panel")
+            {
+                Debug.Log("Hit Panel");
             }
         }
-        else laser.enabled = false;
+        else
+        {
+            onInteractWithUI.Invoke("", false);
+            //laser.enabled = false;
+        }
+
     }
 
 
@@ -106,15 +151,15 @@ public class PlayerController : LaserController
 
         if (showClub)
         {
-            rightController.AttachObject(golfClub, grabType);
-            rightController.HoverLock(golfClub.GetComponent<Interactable>());
-            golfClub.SetActive(true);
+            rightController.AttachObject(golfClubInstance, grabType);
+            rightController.HoverLock(golfClubInstance.GetComponent<Interactable>());
+            golfClubInstance.SetActive(true);
         }
         else
         {
-            rightController.DetachObject(golfClub);
-            rightController.HoverUnlock(golfClub.GetComponent<Interactable>());
-            golfClub.SetActive(false);
+            rightController.DetachObject(golfClubInstance);
+            rightController.HoverUnlock(golfClubInstance.GetComponent<Interactable>());
+            golfClubInstance.SetActive(false);
         }
         
     }
@@ -135,3 +180,4 @@ public class PlayerController : LaserController
 
 }
 [Serializable] public class SpawnEvent : UnityEvent<string, int> { }
+[Serializable] public class PanelEvent : UnityEvent<string, bool> { }

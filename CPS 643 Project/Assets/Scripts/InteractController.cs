@@ -6,15 +6,6 @@ using Valve.VR.InteractionSystem;
 public class InteractController : Interactable
 {
 
-    void Start()
-    {
-       
-    }
-
-    void Update()
-    {
-        
-    }
 
 
     // Attach by laser pointer

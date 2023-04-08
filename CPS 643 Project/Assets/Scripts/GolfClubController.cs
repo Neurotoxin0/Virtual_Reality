@@ -4,13 +4,12 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 
-public class GolfClubController : MonoBehaviour
+public class GolfClubController : TimeOut
 {
     [Header("Events")]
     public StrikeEvent onStrike;
     
     private int strikeNum;
-    private bool lock1;
 
     void Start()
     {
@@ -19,21 +18,24 @@ public class GolfClubController : MonoBehaviour
 
     void Update()
     {
-
+        if (timeoutEnabled && timeout) ResetTimeOut();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("GolfClubController OnCollisionEnter" + collision.collider.name);
-        if (collision.gameObject.tag == "Golf Ball" && !lock1)
+        if (collision.gameObject.tag == "Golfball" && !timeoutEnabled)
         {
-            lock1 = true;   // prevent multiple adding to strikeNum
+            // prevent multiple adding to strikeNum
+            Debug.Log("timeoutenabled: " + timeoutEnabled);
+            SetTimeOut(5);
+
             strikeNum++;
             onStrike.Invoke(collision.gameObject.name, strikeNum);
         }
     }
 
-    private void OnCollisionExit(Collision collision) { lock1 = false; }
+    private void OnCollisionExit(Collision collision) { timeoutEnabled = false; }
 
 
     public void InvokeonStrikeEvent() { onStrike.Invoke("Manually", strikeNum); }

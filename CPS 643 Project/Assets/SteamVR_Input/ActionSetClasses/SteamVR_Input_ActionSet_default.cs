@@ -105,19 +105,19 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean GenerateGolfBall
+        public virtual SteamVR_Action_Boolean SpawnGolfBall
         {
             get
             {
-                return SteamVR_Actions.default_GenerateGolfBall;
+                return SteamVR_Actions.default_SpawnGolfBall;
             }
         }
         
-        public virtual SteamVR_Action_Boolean Trigger
+        public virtual SteamVR_Action_Boolean LeftTrigger
         {
             get
             {
-                return SteamVR_Actions.default_Trigger;
+                return SteamVR_Actions.default_LeftTrigger;
             }
         }
         
@@ -126,6 +126,22 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.default_ShowGolfClub;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean ShowControlPanel
+        {
+            get
+            {
+                return SteamVR_Actions.default_ShowControlPanel;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean RightTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.default_RightTrigger;
             }
         }
         

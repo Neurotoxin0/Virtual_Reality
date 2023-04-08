@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Base class for laser pointer
+// Base class for raycast laser
 
 [RequireComponent(typeof(LineRenderer))]
 
@@ -11,14 +11,13 @@ public class LaserController : MonoBehaviour
 
     protected private LineRenderer laser;
     protected private RaycastHit hit;
-    protected private GameObject referenceObj;  // reference object for laser
 
     protected virtual void InitLaser() 
     {
         laser = GetComponent<LineRenderer>();
     }
 
-    protected void UpdateLaser()
+    protected virtual void UpdateLaser(GameObject referenceObj)
     {
         laser.SetPosition(0, referenceObj.transform.position);
 
