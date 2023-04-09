@@ -21,13 +21,12 @@ public class PlayerController : LaserController
 
     [Header("Events")]
     public SpawnEvent onSpawnGolfBall;
-    public PanelEvent onInteractWithUI;
 
     private Hand leftController, rightController;
     private GameObject golfBallPointer;
     private int golfBallCount;  // how many left
     private bool showController, showHoverDetail;
-    private bool spawnMode, showClub, showPanel;
+    private bool spawnMode, showClub;
 
     void Start()
     {
@@ -44,7 +43,6 @@ public class PlayerController : LaserController
         showHoverDetail = true;
         spawnMode = false;  // spawn golf ball
         showClub = true;
-        showPanel = false;
     }
 
     
@@ -57,7 +55,6 @@ public class PlayerController : LaserController
         // change status
         if (showGolfClubButton.stateDown) showClub = !showClub; 
         if (spawnGolfBallButton.stateDown) spawnMode = !spawnMode;
-        if (showControlPanelButton.stateDown) showPanel = !showPanel;
 
         // spawn golf ball
         if (spawnMode)
@@ -84,30 +81,9 @@ public class PlayerController : LaserController
         }
         else
         {
-            //laser.enabled = false;
+            laser.enabled = false;
             golfBallPointer.SetActive(false);
         }
-
-        // open the control panel
-        if (showPanel)
-        {
-            //Debug.Log("Show Panel");
-            
-            onInteractWithUI.Invoke("", true);
-            UpdateLaser(rightController.gameObject);
-            laser.enabled = true;
-
-            if (hit.collider != null && hit.collider.gameObject.name == "Control Panel")
-            {
-                Debug.Log("Hit Panel");
-            }
-        }
-        else
-        {
-            onInteractWithUI.Invoke("", false);
-            //laser.enabled = false;
-        }
-
     }
 
 
@@ -180,4 +156,3 @@ public class PlayerController : LaserController
 
 }
 [Serializable] public class SpawnEvent : UnityEvent<string, int> { }
-[Serializable] public class PanelEvent : UnityEvent<string, bool> { }

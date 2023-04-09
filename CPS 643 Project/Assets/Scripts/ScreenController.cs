@@ -1,9 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-// on Scrreen.Panel
+// on Canvas.Screen
 
-public class CanvasController : TimeOut
+public class ScreenController : TimeOut
 {
     private GameObject strikeCnt, golfBallCnt, timer, message;
 
