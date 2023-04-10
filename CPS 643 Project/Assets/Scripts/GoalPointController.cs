@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 // on Goal_Point.Cup
 
-public class GoalController : MonoBehaviour
+public class GoalPointController : MonoBehaviour
 {
     [Header("Events")]
     public GoalEvent onGoal;
@@ -28,8 +28,8 @@ public class GoalController : MonoBehaviour
         {
             //Debug.Log("Goal");
             Destroy(other.gameObject);
-            onGoal.Invoke("Level Passed", -1);
+            onGoal.Invoke("Level Passed", 5f);
         }
     }
 }
-[Serializable] public class GoalEvent : UnityEvent<string, int> { }
+[Serializable] public class GoalEvent : UnityEvent<string, float> { }

@@ -1,23 +1,47 @@
+using System;
+using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR;
 
 // Reserved
 
 public class SceneController : MonoBehaviour
 {
-
     void Start()
     {
         
     }
 
-    void Update()
+    private void Update()
     {
         
     }
 
-    void MoveToAnotherScene(string name)
+
+    public void MoveToScene(string name)
     {
-        SceneManager.LoadScene(name);
+        Debug.Log("move to scene: " + name);
+
+        // for resource magement, we use single scene mode, where move to another scene will release previous one.
+        AsyncOperation asyncLoad;
+
+        // fade out
+        SteamVR_Fade.View(Color.black, 0.5f);
+
+        if (name == "") // reload current scene
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else // load another scene
+        {
+            SceneManager.LoadScene(name);
+        }
+
+        
+
+        // fade in
+        SteamVR_Fade.View(Color.clear, 0.5f);
     }
 }

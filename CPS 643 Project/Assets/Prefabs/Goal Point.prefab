@@ -320,8 +320,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 688448390705797872}
     m_Modifications:
+    - target: {fileID: 1639243288166728800, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}
+      propertyPath: onGoal.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1639243288166728800, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}
+      propertyPath: onGoal.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1639243288166728800, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}
+      propertyPath: onGoal.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570917174818417126, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570917174818417126, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5844091726033815660, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}
       propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5844091726033815660, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6237726325737975689, guid: 8a8fc44520e220940a58f22a9312f481, type: 3}

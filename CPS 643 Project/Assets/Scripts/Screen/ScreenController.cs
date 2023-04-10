@@ -3,7 +3,7 @@ using UnityEngine;
 
 // on Canvas.Screen
 
-public class ScreenController : TimeOut
+public class ScreenController : MonoBehaviour
 {
     private GameObject strikeCnt, golfBallCnt, timer, message;
 
@@ -22,11 +22,7 @@ public class ScreenController : TimeOut
 
     void Update()
     {
-        if (timeoutEnabled && timeout) 
-        {
-            message.SetActive(false);
-            ResetTimeOut();
-        }
+
     }
 
 
@@ -48,10 +44,13 @@ public class ScreenController : TimeOut
         timer.GetComponent<TextMeshProUGUI>().text = "Timer: " + time;
     }
 
-    public void ShowMsg(string msg, int time)
+    public void ShowMsg(string msg, float time)
     {
+        Debug.Log(msg + time);
         message.GetComponent<TextMeshProUGUI>().text = msg;
         message.SetActive(true); 
-        if (time > 0) SetTimeOut(time);
+        if (time > 0) Invoke("HideMsg", time); // Hide the Message after specified time second
     }
+
+    private void HideMsg() { message.SetActive(false); }
 }

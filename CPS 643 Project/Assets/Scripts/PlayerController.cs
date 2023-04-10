@@ -15,7 +15,6 @@ public class PlayerController : LaserController
     public GameObject golfBallPointerPrefab;
     public SteamVR_Action_Boolean showGolfClubButton;
     public SteamVR_Action_Boolean spawnGolfBallButton;
-    public SteamVR_Action_Boolean test;
     public SteamVR_Action_Boolean leftTriggerButton;    // spawn golf ball
 
     [Header("Events")]
@@ -54,7 +53,6 @@ public class PlayerController : LaserController
         // change status
         if (showGolfClubButton.stateDown) showClub = !showClub; 
         if (spawnGolfBallButton.stateDown) spawnMode = !spawnMode;
-        if (test.stateDown) Debug.Log("test");
 
         // spawn golf ball
         if (spawnMode)
@@ -142,7 +140,8 @@ public class PlayerController : LaserController
 
     private bool SpawnGolfBall()
     {
-        if (golfBallCount > 0)
+        // the player could only spawn golf ball when he has left ball and there is no golf ball in the scene
+        if (golfBallCount > 0 && GameObject.FindWithTag("Golfball") == null)
         {
             GameObject golfBall = Instantiate(golfBallPrefab, hit.point, Quaternion.identity) as GameObject;
             golfBallCount--;
