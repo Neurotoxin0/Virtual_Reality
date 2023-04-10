@@ -1,20 +1,19 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+
+// on Plater.SteamVRObjects.RightHand.UI Pointer
 
 public class UIPointerController : LaserController
 {
     public float defaultLength = 5.0f;
     public GameObject dot;
     public VRInputModule vrInputModule;
-    private LineRenderer lineRenderer = null;
+    private LineRenderer lineRenderer;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
     }
-    void Start()
-    {
-        
-    }
-
 
     void Update()
     {
@@ -23,21 +22,17 @@ public class UIPointerController : LaserController
 
     void UpdateRenderLine()
     {
-        float len = defaultLength;
+        // if hit, use hit point or use default length
+        PointerEventData data = vrInputModule.data;
+        float len = data.pointerCurrentRaycast.distance == 0 ? defaultLength : data.pointerCurrentRaycast.distance;
 
         RaycastHit hit = CreateRaycast(len);
 
-        Vector3 endPos = transform.position + (transform.forward * len);
-
-        if (hit.collider != null)
-        {
-            endPos = hit.point;
-        }
-        lineRenderer.enabled = true;
-        dot.transform.position = endPos;
-
+        Vector3 endPos = hit.collider != null ? hit.point : transform.position + (transform.forward * len);
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, endPos);
+        lineRenderer.enabled = true;
+        dot.transform.position = endPos;    // set dot position
     }
 
     private RaycastHit CreateRaycast(float distance)

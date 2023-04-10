@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a328157811487f944ab9b359153dd29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserRange: 10
   defaultLength: 10
   dot: {fileID: 3122164401518941488}
   vrInputModule: {fileID: 0}

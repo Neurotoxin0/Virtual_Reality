@@ -1,11 +1,11 @@
+using System;
 using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 using UnityEngine.Events;
 using Hand = Valve.VR.InteractionSystem.Hand;
-using System;
 
-// on Player instance
+// on Player
 
 public class PlayerController : LaserController
 {
@@ -15,9 +15,8 @@ public class PlayerController : LaserController
     public GameObject golfBallPointerPrefab;
     public SteamVR_Action_Boolean showGolfClubButton;
     public SteamVR_Action_Boolean spawnGolfBallButton;
-    public SteamVR_Action_Boolean showControlPanelButton;
-    public SteamVR_Action_Boolean leftTriggerButton;
-    public SteamVR_Action_Boolean rightTriggerButton;
+    public SteamVR_Action_Boolean test;
+    public SteamVR_Action_Boolean leftTriggerButton;    // spawn golf ball
 
     [Header("Events")]
     public SpawnEvent onSpawnGolfBall;
@@ -30,7 +29,7 @@ public class PlayerController : LaserController
 
     void Start()
     {
-        InitLaser();
+        InitLaser();    // from BaseClass: LaserController
 
         leftController = Player.instance.leftHand;
         rightController = Player.instance.rightHand;
@@ -55,6 +54,7 @@ public class PlayerController : LaserController
         // change status
         if (showGolfClubButton.stateDown) showClub = !showClub; 
         if (spawnGolfBallButton.stateDown) spawnMode = !spawnMode;
+        if (test.stateDown) Debug.Log("test");
 
         // spawn golf ball
         if (spawnMode)
@@ -66,7 +66,7 @@ public class PlayerController : LaserController
 
             if (hit.collider != null && hit.collider.gameObject.tag == "Ground")
             {
-                Vector3 pos = new Vector3(hit.point.x, (float)(hit.point.y + 0.5), hit.point.z);
+                Vector3 pos = new Vector3(hit.point.x, (float)(hit.point.y + 0.05), hit.point.z);
                 golfBallPointer.transform.position = pos;
                 golfBallPointer.SetActive(true);
 

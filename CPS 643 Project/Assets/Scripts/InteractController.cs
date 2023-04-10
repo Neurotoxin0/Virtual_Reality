@@ -5,11 +5,8 @@ using Valve.VR.InteractionSystem;
 
 public class InteractController : Interactable
 {
-
-
-
     // Attach by laser pointer
-
+    //TODO
 
 
     // Attach by physical contact
@@ -31,8 +28,6 @@ public class InteractController : Interactable
         }
         */
     }
-
-    
 
 
     private void OnTriggerEnter(Collider other)
