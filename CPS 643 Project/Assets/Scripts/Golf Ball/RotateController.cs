@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// on Golf Ball
+
 public class RotateController : MonoBehaviour
 {
     public bool isActivated;
@@ -18,4 +20,6 @@ public class RotateController : MonoBehaviour
     {
 		  if (isActivated) transform.Rotate(vec * rotateRatio * Time.deltaTime);
     }
+
+    public void Rotate() { isActivated = true; }    // called by invoke event
 }

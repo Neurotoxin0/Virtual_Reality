@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using Valve.VR;
+using UnityEngine.Events;
+using System;
+
+[RequireComponent(typeof(Canvas))]
 
 // on Canvas.Control Panel
 
 public class ControlPanelController : MonoBehaviour
 {
     [Header("Configuration")] 
-    public SteamVR_Action_Boolean showControlPanelButton; 
-    
+    public SteamVR_Action_Boolean showControlPanelButton;
+
+    [Header("Events")]
+    public ShowPanelEvent onShowPanel;
+
     private GameObject playerCamera;
     private Canvas canvas;
     private bool showPanel;
@@ -21,7 +28,11 @@ public class ControlPanelController : MonoBehaviour
 
     void Update()
     {
-        if (showControlPanelButton.stateDown) showPanel = !showPanel;
+        if (showControlPanelButton.stateDown)
+        {
+            showPanel = !showPanel;
+            onShowPanel.Invoke("", showPanel);
+        }
 
         if (showPanel)
         {
@@ -34,4 +45,6 @@ public class ControlPanelController : MonoBehaviour
         }
         else canvas.enabled = false; 
     }
+
 }
+[Serializable] public class ShowPanelEvent : UnityEvent<string, bool> { }

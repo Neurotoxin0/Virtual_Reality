@@ -1,47 +1,52 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
+
+[RequireComponent(typeof(LineRenderer), typeof(Camera))] // should have inherited from Laser Controller; but just in case
 
 // on Plater.SteamVRObjects.RightHand.UI Pointer
 
 public class UIPointerController : LaserController
 {
-    public float defaultLength = 5.0f;
-    public GameObject dot;
-    public VRInputModule vrInputModule;
-    private LineRenderer lineRenderer;
+    [Header("Configuration")] 
+    public GameObject UIPointer;
+    //public VRInputModule vrInputModule;
 
-    private void Awake()
+    private bool showPanel;
+
+
+    private void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        InitLaser();
+        showPanel = false;
     }
 
     void Update()
     {
-        UpdateRenderLine();
+        if (showPanel)
+        {
+            UpdateLaser(this.gameObject);
+            laser.enabled = true;
+
+            // distance to panel button; provided by EventSystem; 0 if not hit
+            //PointerEventData data = vrInputModule.data;
+            //float distance = data.pointerCurrentRaycast.distance;
+
+            if (hit.collider != null)
+            {
+                // show UI pointer
+                UIPointer.transform.position = hit.point;
+                UIPointer.SetActive(true);
+            }
+            else UIPointer.SetActive(false);
+        }
+        else
+        {
+            laser.enabled = false;
+            UIPointer.SetActive(false);
+        }
     }
 
-    void UpdateRenderLine()
+    public void ShowUIPointer(string debug, bool state) // get called by ControlPanelController.ShowPanelEvent->onShowPanel
     {
-        // if hit, use hit point or use default length
-        PointerEventData data = vrInputModule.data;
-        float len = data.pointerCurrentRaycast.distance == 0 ? defaultLength : data.pointerCurrentRaycast.distance;
-
-        RaycastHit hit = CreateRaycast(len);
-
-        Vector3 endPos = hit.collider != null ? hit.point : transform.position + (transform.forward * len);
-        lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, endPos);
-        lineRenderer.enabled = true;
-        dot.transform.position = endPos;    // set dot position
-    }
-
-    private RaycastHit CreateRaycast(float distance)
-    {
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
-
-        Physics.Raycast(ray, out hit, distance);
-
-        return hit;
+        showPanel = state;
     }
 }

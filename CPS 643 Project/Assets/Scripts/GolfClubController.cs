@@ -1,14 +1,17 @@
 using System;
+using Valve.VR.InteractionSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 
+// on Golf Club
+
 public class GolfClubController : MonoBehaviour
 {
     [Header("Events")]
-    public StrikeEvent onStrike;
-    
+    public StrikeEvent onStrike;    // related: Screen.ScreenController.UpdateStrikeCnt; Utility.HapticCpntroller.ShortPulse;
+
     private int strikeNum;
     private bool isStriked;
 
@@ -30,7 +33,10 @@ public class GolfClubController : MonoBehaviour
         {
             strikeNum++;
             isStriked = true;
-            onStrike.Invoke(collision.gameObject.name, strikeNum);
+            onStrike.Invoke(Player.instance.rightHand, strikeNum);
+
+            // add extra force to golfball
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);     //TODO: test
         }
     }
 
@@ -39,8 +45,8 @@ public class GolfClubController : MonoBehaviour
         Invoke("UnlockStrike", 2f);
     }
 
-    public void InvokeonStrikeEvent() { onStrike.Invoke("Manually", strikeNum); }
+    public void InvokeonStrikeEvent() { onStrike.Invoke(null, strikeNum); }
 
     private void UnlockStrike() { isStriked = false; }
 }
-[Serializable] public class StrikeEvent : UnityEvent<string, int> { }
+[Serializable] public class StrikeEvent : UnityEvent<Hand, int> { }

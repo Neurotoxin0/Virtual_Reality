@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Base class for raycast laser
+// Base class for raycast laser; used by PlayerController and ControlPanelController
 
 [RequireComponent(typeof(LineRenderer))]
 

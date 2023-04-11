@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4816213409134091211}
   - component: {fileID: 7924152793661133782}
+  - component: {fileID: 4800461562902826909}
+  - component: {fileID: 7320171496463843043}
   m_Layer: 0
   m_Name: Player Framework
   m_TagString: Untagged
@@ -46,6 +48,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5f5070e6024714dab5bc5fd92295db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4800461562902826909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816213409134091210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c4d6ed83a78df942a18ed76ccfcfbc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControllerHaptic:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0
+--- !u!114 &7320171496463843043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816213409134091210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c463dc5c7828cf542ac1cb664e9fbbf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &43197139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53,6 +82,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4816213410296926761}
     m_Modifications:
+    - target: {fileID: 1532457983503769483, guid: 21e8a7a056433d34a90a9fea32913753, type: 3}
+      propertyPath: UIPointer
+      value: 
+      objectReference: {fileID: 3122164401478252515}
     - target: {fileID: 1532457983503769483, guid: 21e8a7a056433d34a90a9fea32913753, type: 3}
       propertyPath: vrInputModule
       value: 
@@ -110,6 +143,11 @@ PrefabInstance:
 --- !u!20 &2741177438308444623 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2741177438332750620, guid: 21e8a7a056433d34a90a9fea32913753, type: 3}
+  m_PrefabInstance: {fileID: 43197139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3122164401478252515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3122164401518941488, guid: 21e8a7a056433d34a90a9fea32913753, type: 3}
   m_PrefabInstance: {fileID: 43197139}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4816213409877537359
@@ -272,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
   eventCamera: {fileID: 2741177438308444623}
-  clickAction:
+  UIInteractButton:
     actionPath: /actions/default/in/RightTrigger
     needsReinit: 0
 --- !u!1 &4816213410297306889 stripped
@@ -407,6 +445,18 @@ MonoBehaviour:
   onSpawnGolfBall:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 4800461562902826909}
+        m_TargetAssemblyTypeName: HapticController, Assembly-CSharp
+        m_MethodName: ShortPulse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ScreenController, Assembly-CSharp
         m_MethodName: UpdateGolfBallCnt

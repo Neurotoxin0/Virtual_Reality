@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
-using UnityEngine.Events;
-using Hand = Valve.VR.InteractionSystem.Hand;
 
-// on Player
+
+[RequireComponent(typeof(LineRenderer))] // should have inherited from Laser Controller; but just in case
+
+// on PlayerFramework.Player
 
 public class PlayerController : LaserController
 {
@@ -18,7 +20,7 @@ public class PlayerController : LaserController
     public SteamVR_Action_Boolean leftTriggerButton;    // spawn golf ball
 
     [Header("Events")]
-    public SpawnEvent onSpawnGolfBall;
+    public SpawnEvent onSpawnGolfBall;  // related: Screen.ScreenController.UpdateGolfBallCnt; Utility.HapticCpntroller.ShortPulse;
 
     private Hand leftController, rightController;
     private GameObject golfBallPointer;
@@ -64,7 +66,8 @@ public class PlayerController : LaserController
 
             if (hit.collider != null && hit.collider.gameObject.tag == "Ground")
             {
-                Vector3 pos = new Vector3(hit.point.x, (float)(hit.point.y + 0.05), hit.point.z);
+                // show golf ball pointer
+                Vector3 pos = new Vector3(hit.point.x, (float)(hit.point.y + 0.05), hit.point.z);   // offset a bit to make sure the golf ball is on the ground
                 golfBallPointer.transform.position = pos;
                 golfBallPointer.SetActive(true);
 
@@ -145,13 +148,13 @@ public class PlayerController : LaserController
         {
             GameObject golfBall = Instantiate(golfBallPrefab, hit.point, Quaternion.identity) as GameObject;
             golfBallCount--;
-            onSpawnGolfBall.Invoke(golfBall.gameObject.name, golfBallCount);
+            onSpawnGolfBall.Invoke(Player.instance.leftHand, golfBallCount);
             return true;
         }
         return false;
     }
 
-    public void InvokeonSpawnGolfBall() { onSpawnGolfBall.Invoke("Manually", golfBallCount); }
+    public void InvokeonSpawnGolfBall() { onSpawnGolfBall.Invoke(null, golfBallCount); }
 
 }
-[Serializable] public class SpawnEvent : UnityEvent<string, int> { }
+[Serializable] public class SpawnEvent : UnityEvent<Hand, int> { }

@@ -2,17 +2,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Valve.VR;
 
-// on Player.VRInputModule
+[RequireComponent(typeof(EventSystem))]
+
+// on PlayerFramework.Player.VRInputModule
 
 public class VRInputModule : BaseInputModule
 {
     [Header("Configuration")]
     public Camera eventCamera;
-    public SteamVR_Action_Boolean clickAction;
+    public SteamVR_Action_Boolean UIInteractButton;
 
-    private GameObject currentObject;
     public PointerEventData data { get; private set; }
-
+    private GameObject currentObject;
+    
     protected override void Awake()
     {
         base.Awake();   // call base class's Awake()
@@ -40,8 +42,8 @@ public class VRInputModule : BaseInputModule
         HandlePointerExitAndEnter(data, currentObject);
 
         // Press & Release
-        if (clickAction.stateDown)  ProcessPress(data);
-        if (clickAction.stateUp)    ProcessRelease(data);
+        if (UIInteractButton.stateDown)  ProcessPress(data);
+        if (UIInteractButton.stateUp)    ProcessRelease(data);
     }
 
     private void ProcessPress(PointerEventData data)
@@ -51,6 +53,7 @@ public class VRInputModule : BaseInputModule
         GameObject onPress = ExecuteEvents.ExecuteHierarchy(currentObject, data, ExecuteEvents.pointerDownHandler);
         if (onPress == null) onPress = ExecuteEvents.GetEventHandler<IPointerClickHandler>(currentObject); // if no pointerDownHandler, try pointerClickHandler
 
+        // set data
         data.pressPosition = data.position;
         data.pointerPress = onPress;
         data.rawPointerPress = currentObject;

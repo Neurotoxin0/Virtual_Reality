@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-// on Screen
+// on  Canvas.Screen
 
 public class Timer : MonoBehaviour
 {

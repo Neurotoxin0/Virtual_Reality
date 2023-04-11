@@ -2,7 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-// on Goal_Point.Cup
+[RequireComponent(typeof(Collider), typeof(Rigidbody))]
+
+// on Goal Point.Cup
 
 public class GoalPointController : MonoBehaviour
 {

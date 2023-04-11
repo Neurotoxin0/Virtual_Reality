@@ -1,5 +1,8 @@
 using TMPro;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
+
+[RequireComponent(typeof(Canvas))]
 
 // on Canvas.Screen
 
@@ -26,13 +29,13 @@ public class ScreenController : MonoBehaviour
     }
 
 
-    public void UpdateStrikeCnt(string debug_text, int cnt)
+    public void UpdateStrikeCnt(Hand _, int cnt)
     {
         //Debug.Log(debug_text + cnt);
         strikeCnt.GetComponent<TextMeshProUGUI>().text = "Number of Strike: " + cnt.ToString();
     }
 
-    public void UpdateGolfBallCnt(string debug_text, int cnt)
+    public void UpdateGolfBallCnt(Hand _, int cnt)
     {
         //Debug.Log(debug_text + cnt); 
         golfBallCnt.GetComponent<TextMeshProUGUI>().text = "Golf Ball Left: " + cnt.ToString();
