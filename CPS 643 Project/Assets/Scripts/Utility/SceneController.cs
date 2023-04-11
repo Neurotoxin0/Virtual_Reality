@@ -24,9 +24,6 @@ public class SceneController : MonoBehaviour
     {
         Debug.Log("move to scene: " + name);
 
-        // for resource magement, we use single scene mode, where move to another scene will release previous one.
-        AsyncOperation asyncLoad;
-
         // fade out
         SteamVR_Fade.View(Color.black, 0.5f);
 
