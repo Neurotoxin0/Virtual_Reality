@@ -1,43 +1,32 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // on PlayerFramework
 
 public class DifficultyController : MonoBehaviour
 {
-    private int level, difficulty;
-
-    void Start()
+    private const int MaxDifficulty = 3;
+    
+    public void SetDifficulty(int difficulty)
     {
-        level = SceneManager.GetActiveScene().buildIndex;
-        difficulty = 0;
+        if (difficulty < 0 || difficulty > 3)
+        {
+            Debug.Log("Invalid Difficulty: " + difficulty);
+            return;
+        }
+        else if (difficulty == 0) DifficultyAction(MaxDifficulty, false);   // Reset difficulty
+        else DifficultyAction(difficulty, true);
     }
 
-    void Update()
+    private void DifficultyAction(int level, bool newState)
     {
-        switch (level)
+        for (int i = 1; i <= level; i++)
         {
-            case 1: Level1Difficulty(); break;
-            case 2: Level2Difficulty(); break;
-            default: break;     
+            GameObject[] gameobjects = GameObject.FindGameObjectsWithTag("Difficulty" + i);
+
+            foreach (GameObject gameobject in gameobjects)
+            {
+                gameobject.SetActive(newState);
+            }
         }
     }
-
-    public void SetDifficulty(int value)
-    {
-        difficulty = value;
-        Debug.Log("Difficulty set to " + difficulty);
-    }
-
-    private void Level1Difficulty()
-    {
-
-    }
-
-    private void Level2Difficulty()
-    {
-
-    }
-
-
 }

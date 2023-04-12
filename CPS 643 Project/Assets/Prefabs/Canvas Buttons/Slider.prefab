@@ -258,8 +258,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8479081546542483291}
-  - component: {fileID: 5413202824303713787}
   - component: {fileID: 5860099411938687693}
+  - component: {fileID: 5413202824303713787}
   - component: {fileID: 5860099411938687692}
   m_Layer: 5
   m_Name: Slider
@@ -291,6 +291,19 @@ RectTransform:
   m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 150, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!65 &5860099411938687693
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2745161111559647622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5413202824303713787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,19 +367,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!65 &5860099411938687693
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2745161111559647622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5860099411938687692
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Valve.VR.InteractionSystem;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 
@@ -11,17 +12,6 @@ public class GoalPointController : MonoBehaviour
     [Header("Events")]
     public GoalEvent onGoal;
 
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("HoleController Trigger by " + other.name);
@@ -31,6 +21,7 @@ public class GoalPointController : MonoBehaviour
             //Debug.Log("Goal");
             Destroy(other.gameObject);
             onGoal.Invoke("Level Passed", 5f);
+            GameObject.Find("Level 2").GetComponent<TeleportPoint>().locked = false;
         }
     }
 }

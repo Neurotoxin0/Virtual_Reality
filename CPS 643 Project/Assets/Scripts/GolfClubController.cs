@@ -36,7 +36,7 @@ public class GolfClubController : MonoBehaviour
             onStrike.Invoke(Player.instance.rightHand, strikeNum);
 
             // add extra force to golfball
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);     //TODO: test
+            //collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);     //TODO: test
         }
     }
 

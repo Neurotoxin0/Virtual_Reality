@@ -17,7 +17,7 @@ public class GolfBallController : MonoBehaviour
         goalPoint = GameObject.Find("Goal Point");
         constantForce = GetComponent<ConstantForce>();
 
-        cheatMode = true;
+        cheatMode = true;   // TODO
     }
 
     void Update()
@@ -38,11 +38,13 @@ public class GolfBallController : MonoBehaviour
         //Debug.Log("GolfBallController OnCollisionEnter" + collision.collider.name);
         if (collision.gameObject.name == "Golfclub" && cheatMode)
         {
+            Debug.Log("Adjust golf ball");
+            
             // if cheat mode: apply force to "help" the golf ball go towards the goal point :)))
-            Vector3 torqueForce = new Vector3(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1));
-            constantForce.torque = torqueForce;
-
-            Invoke("ResetConstantForce", 1f);    // too obvious ? no way
+            Vector3 TheForce = camera.transform.position + camera.transform.forward;
+            constantForce.force = -TheForce * 0.1f;
+            constantForce.enabled = true;
+            Invoke("ResetConstantForce", 1.5f);    // too obvious ? no way
         }
     }
 

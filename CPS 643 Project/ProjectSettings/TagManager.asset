@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Golfball
+  - Difficulty 2
+  - Difficulty 1
+  - Difficulty 3
   layers:
   - Default
   - TransparentFX

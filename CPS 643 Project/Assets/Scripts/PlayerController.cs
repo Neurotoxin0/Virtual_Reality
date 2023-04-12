@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
-
+using static Valve.VR.InteractionSystem.Hand;
 
 [RequireComponent(typeof(LineRenderer))] // should have inherited from Laser Controller; but just in case
 
@@ -122,13 +122,14 @@ public class PlayerController : LaserController
         
     }
 
+    private AttachmentFlags defaultAttachmentFlags = AttachmentFlags.ParentToHand | AttachmentFlags.DetachOthers | AttachmentFlags.DetachFromOtherHand | AttachmentFlags.TurnOnKinematic | AttachmentFlags.SnapOnAttach;
     private void ShowGolfClub()
     {
         GrabTypes grabType = rightController.GetGrabStarting();
 
         if (showClub)
         {
-            rightController.AttachObject(golfClubInstance, grabType);
+            rightController.AttachObject(golfClubInstance, grabType, defaultAttachmentFlags, golfClubInstance.transform.GetChild(0).transform);
             rightController.HoverLock(golfClubInstance.GetComponent<Interactable>());
             golfClubInstance.SetActive(true);
         }

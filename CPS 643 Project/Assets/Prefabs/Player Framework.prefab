@@ -87,6 +87,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3122164401478252515}
     - target: {fileID: 1532457983503769483, guid: 21e8a7a056433d34a90a9fea32913753, type: 3}
+      propertyPath: laserRange
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532457983503769483, guid: 21e8a7a056433d34a90a9fea32913753, type: 3}
       propertyPath: vrInputModule
       value: 
       objectReference: {fileID: 692626320}
@@ -430,7 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserRange: 10
-  golfClubInstance: {fileID: 0}
+  golfClubPrefab: {fileID: 3955823994700506384, guid: 1cacd37db68b03b4db52e458d462de33, type: 3}
   golfBallPrefab: {fileID: 3239240053011315606, guid: 49557aee86347c04090cc495c7ed7a07, type: 3}
   golfBallPointerPrefab: {fileID: 1869328021688721473, guid: a3cef37c9382ed84ab426ab0b3a69fd9, type: 3}
   showGolfClubButton:

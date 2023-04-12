@@ -9,13 +9,13 @@ using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour
 {
-    [Header("Configuration")]
+    [Header("Usage")]
     public bool invokeSetDiffuculty = false;
 
     [Header("Events")]
-    public FloatEvent setDiffuculty;
+    public IntEvent setDiffuculty;
     
-    private int type;   // 1: button; 2: toggle
+    private int type;   // 1: button; 2: toggle; reserved
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class SliderController : MonoBehaviour
     {
         Debug.Log("Slider value changed to " + value);
 
-        if (invokeSetDiffuculty) setDiffuculty.Invoke(value);
+        if (invokeSetDiffuculty) setDiffuculty.Invoke((int)value);
     }
 }
-[Serializable] public class FloatEvent : UnityEvent<float> { }
+[Serializable] public class IntEvent : UnityEvent<int> { }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ButtonController : MonoBehaviour
 {
-    [Header("Configuration")]
+    [Header("Usage")]
     public bool invokeResetScene = false;
     public bool invokeCheatMode = false;
 

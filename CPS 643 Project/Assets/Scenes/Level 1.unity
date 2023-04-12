@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstacleRedTrim_03 Right
       objectReference: {fileID: 0}
+    - target: {fileID: 1241381541418507809, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
+      propertyPath: m_TagString
+      value: Difficulty 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1905468235911414939, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -433,6 +437,10 @@ PrefabInstance:
     - target: {fileID: 3407107664164000272, guid: a97d43a94f45f704ba9916e517f46fa5, type: 3}
       propertyPath: m_Name
       value: ObstacleRedHill_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407107664164000272, guid: a97d43a94f45f704ba9916e517f46fa5, type: 3}
+      propertyPath: m_TagString
+      value: Difficulty 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a97d43a94f45f704ba9916e517f46fa5, type: 3}
@@ -634,6 +642,10 @@ PrefabInstance:
     - target: {fileID: 1241381541418507809, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
       propertyPath: m_Name
       value: ObstacleRedTrim_03 Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241381541418507809, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
+      propertyPath: m_TagString
+      value: Difficulty 1
       objectReference: {fileID: 0}
     - target: {fileID: 1905468235911414939, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
       propertyPath: m_RootOrder
@@ -1173,6 +1185,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 595410112}
     m_Modifications:
+    - target: {fileID: 1000446335179978600, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.2898917
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000446335179978600, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.780382
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000446335179978600, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.26034722
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000446335179978600, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.48906657
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000446335179978600, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -135
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000446335179978600, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000446335179978600, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 1646745773311385246, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
       propertyPath: onStrike.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -1260,6 +1300,26 @@ PrefabInstance:
     - target: {fileID: 1856589233408077698, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
       propertyPath: m_Name
       value: Start Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495284679260704129, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624989764048661679, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624989764048661679, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624989764048661679, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.045
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624989764048661679, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5831557374506868919, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
       propertyPath: m_LocalScale.x
