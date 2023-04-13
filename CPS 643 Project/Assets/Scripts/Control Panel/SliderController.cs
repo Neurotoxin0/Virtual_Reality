@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //[RequireComponent(typeof(Collider))]
@@ -26,9 +27,9 @@ public class SliderController : MonoBehaviour
     }
     public void OnSliderValueChanged(float value)
     {
-        Debug.Log("Slider value changed to " + value);
+        Debug.Log("Slider value changed to " + (int)value);
 
-        if (invokeSetDiffuculty) setDiffuculty.Invoke((int)value);
+        if (invokeSetDiffuculty) setDiffuculty.Invoke(SceneManager.GetActiveScene().buildIndex, (int)value);
     }
 }
-[Serializable] public class IntEvent : UnityEvent<int> { }
+[Serializable] public class IntEvent : UnityEvent<int, int> { }

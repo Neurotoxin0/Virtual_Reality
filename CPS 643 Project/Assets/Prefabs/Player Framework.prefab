@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5f5070e6024714dab5bc5fd92295db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!114 &4800461562902826909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +280,10 @@ PrefabInstance:
       propertyPath: showDebugText
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012749712888, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: doNotDestroy
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114000013786455312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -434,7 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserRange: 10
-  golfClubPrefab: {fileID: 3955823994700506384, guid: 1cacd37db68b03b4db52e458d462de33, type: 3}
+  golfClubInstance: {fileID: 0}
   golfBallPrefab: {fileID: 3239240053011315606, guid: 49557aee86347c04090cc495c7ed7a07, type: 3}
   golfBallPointerPrefab: {fileID: 1869328021688721473, guid: a3cef37c9382ed84ab426ab0b3a69fd9, type: 3}
   showGolfClubButton:

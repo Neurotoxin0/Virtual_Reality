@@ -30,7 +30,7 @@ public class ButtonController : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("Button clicked!");
+        //Debug.Log("Button clicked!");
 
         if (type == 1) buttonState = !buttonState;
         else if (type == 2) buttonState = GetComponent<Toggle>().isOn;

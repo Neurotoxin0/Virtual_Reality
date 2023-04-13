@@ -24,6 +24,7 @@ public class PlayerController : LaserController
 
     private Hand leftController, rightController;
     private GameObject golfBallPointer;
+    private ScreenController screenController;
     private int golfBallCount;  // how many left
     private bool showController, showHoverDetail;
     private bool spawnMode, showClub;
@@ -34,6 +35,7 @@ public class PlayerController : LaserController
 
         leftController = Player.instance.leftHand;
         rightController = Player.instance.rightHand;
+        screenController = GameObject.Find("Screen").GetComponent<ScreenController>();
 
         // use left hand to spawn golf ball and right hand to interact with UI
         golfBallPointer = Instantiate(golfBallPointerPrefab, leftController.gameObject.transform);
@@ -53,8 +55,12 @@ public class PlayerController : LaserController
         ShowGolfClub();
 
         // change status
-        if (showGolfClubButton.stateDown) showClub = !showClub; 
-        if (spawnGolfBallButton.stateDown) spawnMode = !spawnMode;
+        if (showGolfClubButton.stateDown) showClub = !showClub;
+        if (spawnGolfBallButton.stateDown)    // only can spawn new golf ball when there is no golf ball in the scene
+        {
+            if (GameObject.FindWithTag("Golfball") == null) spawnMode = !spawnMode;
+            else screenController.ShowMsg("There is already a golf ball in the scene", 2, Color.red);
+        }
 
         // spawn golf ball
         if (spawnMode)
@@ -144,10 +150,10 @@ public class PlayerController : LaserController
 
     private bool SpawnGolfBall()
     {
-        // the player could only spawn golf ball when he has left ball and there is no golf ball in the scene
-        if (golfBallCount > 0 && GameObject.FindWithTag("Golfball") == null)
+        if (golfBallCount > 0)
         {
-            GameObject golfBall = Instantiate(golfBallPrefab, hit.point, Quaternion.identity) as GameObject;
+            Vector3 offset = new Vector3(0, 0.05f, 0);
+            GameObject golfBall = Instantiate(golfBallPrefab, hit.point + offset, Quaternion.identity) as GameObject;
             golfBallCount--;
             onSpawnGolfBall.Invoke(Player.instance.leftHand, golfBallCount);
             return true;

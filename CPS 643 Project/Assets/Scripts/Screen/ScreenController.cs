@@ -6,6 +6,12 @@ using Valve.VR.InteractionSystem;
 
 // on Canvas.Screen
 
+/*
+ * Steam VR Source Cod was edited
+ * Search for keyword "Alter" for the changes
+ * Involved files:TeleportPoint.cs
+ */
+
 public class ScreenController : MonoBehaviour
 {
     private GameObject strikeCnt, golfBallCnt, timer, message;
@@ -47,10 +53,12 @@ public class ScreenController : MonoBehaviour
         timer.GetComponent<TextMeshProUGUI>().text = "Timer: " + time;
     }
 
-    public void ShowMsg(string msg, float time)
+    public void ShowMsg(string msg, float time, Color color)
     {
-        Debug.Log(msg + time);
-        message.GetComponent<TextMeshProUGUI>().text = msg;
+        //Debug.Log(msg + time);
+        TextMeshProUGUI text = message.GetComponent<TextMeshProUGUI>();
+        text.text = msg;
+        text.color = color;
         message.SetActive(true); 
         if (time > 0) Invoke("HideMsg", time); // Hide the Message after specified time second
     }

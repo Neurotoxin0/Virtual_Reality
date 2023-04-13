@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1241381541418507809, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
       propertyPath: m_TagString
-      value: Difficulty 1
+      value: Difficulty 2
       objectReference: {fileID: 0}
     - target: {fileID: 1905468235911414939, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
       propertyPath: m_RootOrder
@@ -318,9 +318,17 @@ PrefabInstance:
       value: CourseGrassStone_Straight_Long
       objectReference: {fileID: 0}
     - target: {fileID: 6960464585809864800, guid: d32cd4f32f88d2f4aacf923ca590cd70, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960464585809864800, guid: d32cd4f32f88d2f4aacf923ca590cd70, type: 3}
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 6960464585809864802, guid: d32cd4f32f88d2f4aacf923ca590cd70, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 7e44c5316ceceb243a46c43230cfc702, type: 2}
     - target: {fileID: 6960464585809864803, guid: d32cd4f32f88d2f4aacf923ca590cd70, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -440,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3407107664164000272, guid: a97d43a94f45f704ba9916e517f46fa5, type: 3}
       propertyPath: m_TagString
-      value: Difficulty 2
+      value: Difficulty 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a97d43a94f45f704ba9916e517f46fa5, type: 3}
@@ -610,6 +618,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c463dc5c7828cf542ac1cb664e9fbbf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1416548992 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4463780400318510411, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+  m_PrefabInstance: {fileID: 1856589233572866114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1529311975 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4800461562902826909, guid: b19d8b830471e7941aa278993708ad58, type: 3}
@@ -645,7 +658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1241381541418507809, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
       propertyPath: m_TagString
-      value: Difficulty 1
+      value: Difficulty 2
       objectReference: {fileID: 0}
     - target: {fileID: 1905468235911414939, guid: 7aa22e50f56740640947fc1fd7775c50, type: 3}
       propertyPath: m_RootOrder
@@ -753,6 +766,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7594147990881585421, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 7e44c5316ceceb243a46c43230cfc702, type: 2}
     - target: {fileID: 7594147990881585423, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
       propertyPath: m_Name
       value: CourseGrassStone_End
@@ -913,6 +930,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4103892605433702189, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 7e44c5316ceceb243a46c43230cfc702, type: 2}
     - target: {fileID: 4103892605433702191, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
       propertyPath: m_Name
       value: CourseGrassStone_Hole_End_01
@@ -976,7 +997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1470464799, guid: 9d849a30d653b204483b78d9b260f64f, type: 3}
       propertyPath: setDiffuculty.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1470464799, guid: 9d849a30d653b204483b78d9b260f64f, type: 3}
       propertyPath: setDiffuculty.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1002,6 +1023,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1392622069}
+    - target: {fileID: 1802231327534265408, guid: 9d849a30d653b204483b78d9b260f64f, type: 3}
+      propertyPath: m_text
+      value: Difficulty
+      objectReference: {fileID: 0}
     - target: {fileID: 2441527570788971266, guid: 9d849a30d653b204483b78d9b260f64f, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1136,6 +1161,10 @@ PrefabInstance:
       value: Goal Point
       objectReference: {fileID: 0}
     - target: {fileID: 1056889519016068034, guid: b88f25a3b66f0f048a703bb4bbbdc020, type: 3}
+      propertyPath: nextLevelTeleportPoint
+      value: 
+      objectReference: {fileID: 1416548992}
+    - target: {fileID: 1056889519016068034, guid: b88f25a3b66f0f048a703bb4bbbdc020, type: 3}
       propertyPath: onGoal.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1230,6 +1259,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1529311975}
     - target: {fileID: 1646745773311385246, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: onStrike.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646745773311385246, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
       propertyPath: onStrike.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -1301,6 +1334,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 1877424465006117399, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: switchToScene
+      value: Level 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2495284679260704129, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1320,6 +1357,30 @@ PrefabInstance:
     - target: {fileID: 2624989764048661679, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463780400318527247, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463780400318585915, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463780400320736319, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f855134cdd14ab54fa2838027b3eec2f, type: 2}
+    - target: {fileID: 4463780400329339437, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: locked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463780400329339437, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: switchToScene
+      value: Level 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5437955209168319961, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5831557374506868919, guid: bcb34491e8229be43a13965f336e40ff, type: 3}
       propertyPath: m_LocalScale.x
