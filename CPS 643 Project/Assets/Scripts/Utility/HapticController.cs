@@ -10,7 +10,7 @@ public class HapticController : MonoBehaviour
 
     public void Pulse(float duration, float frequency, float amplitude, Hand hand)
     {
-        Debug.Log("Pulse: " + duration + ", " + frequency + ", " + amplitude + ", " + hand + ", " + hand.name);
+        //Debug.Log("Pulse: " + duration + ", " + frequency + ", " + amplitude + ", " + hand + ", " + hand.name);
         if (hand == null) return;
         SteamVR_Input_Sources ctrl = (hand.name == "LeftHand") ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
         ControllerHaptic.Execute(0, duration, frequency, amplitude, ctrl);

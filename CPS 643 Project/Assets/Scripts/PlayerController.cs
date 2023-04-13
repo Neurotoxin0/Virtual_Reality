@@ -128,7 +128,7 @@ public class PlayerController : LaserController
         GrabTypes grabType = rightController.GetGrabStarting();
 
         if (showClub)
-        {
+        {                                                                                    // apply hover point offset
             rightController.AttachObject(golfClubInstance, grabType, defaultAttachmentFlags, golfClubInstance.transform.GetChild(0).transform);
             rightController.HoverLock(golfClubInstance.GetComponent<Interactable>());
             golfClubInstance.SetActive(true);
