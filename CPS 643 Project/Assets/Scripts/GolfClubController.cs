@@ -12,15 +12,15 @@ public class GolfClubController : LaserController   // debug purpose: to find wh
     [Header("Events")]
     public StrikeEvent onStrike;    // related: Screen.ScreenController.UpdateStrikeCnt; Utility.HapticCpntroller.ShortPulse;
 
-    private GameObject refObj;   // aim point as the ref
+    //private GameObject refObj;   // aim point as the ref
     private int strikeNum;
     private bool isStriked;
 
     void Start()
     {
-        refObj = gameObject.transform.GetChild(1).gameObject;
-        InitLaser();
-        laser.enabled = true;
+        //refObj = gameObject.transform.GetChild(1).gameObject;
+        //InitLaser();
+        //laser.enabled = true;
         
         strikeNum = 0;
         isStriked = false;
@@ -28,8 +28,8 @@ public class GolfClubController : LaserController   // debug purpose: to find wh
 
     void Update()
     {  
-        UpdateLaser(refObj);   
-        laser.SetPosition(1, refObj.transform.position + refObj.transform.forward);
+        //UpdateLaser(refObj);   
+        //laser.SetPosition(1, refObj.transform.position + refObj.transform.forward);
     }
 
     private void OnCollisionEnter(Collision collision)

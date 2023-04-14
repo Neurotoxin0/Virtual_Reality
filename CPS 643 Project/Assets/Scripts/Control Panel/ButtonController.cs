@@ -35,8 +35,14 @@ public class ButtonController : MonoBehaviour
         if (type == 1) buttonState = !buttonState;
         else if (type == 2) buttonState = GetComponent<Toggle>().isOn;
 
+        //Debug.Log("Button type " + type + "Button state: " + buttonState);
+
         if (invokeResetScene)   resetScene.Invoke(buttonState);
-        if (invokeCheatMode)    cheatMode.Invoke(buttonState);
+        if (invokeCheatMode)
+        {
+            //cheatMode.Invoke(buttonState);
+            GameObject.FindWithTag("Golfball").gameObject.GetComponent<GolfBallController>().SetCheatMode(buttonState);
+        }
     }
 }
 [Serializable] public class BoolEvent : UnityEvent<bool> { }

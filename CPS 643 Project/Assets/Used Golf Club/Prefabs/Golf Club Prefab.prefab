@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62861992c939aa1448916274569a17a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserRange: 0.5
+  laserRange: 0.05
   onStrike:
     m_PersistentCalls:
       m_Calls: []

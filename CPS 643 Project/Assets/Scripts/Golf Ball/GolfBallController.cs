@@ -10,7 +10,7 @@ public class GolfBallController : MonoBehaviour
 {
     private GameObject camera, goalPoint;
     private ConstantForce constantForce;
-    private bool cheatMode, isAdjusted;
+    private bool cheat, isAdjusted;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class GolfBallController : MonoBehaviour
         goalPoint = GameObject.Find("Goal Point");
         constantForce = GetComponent<ConstantForce>();
 
-        cheatMode = false;
+        cheat = false;
         isAdjusted = false;
     }
 
@@ -29,13 +29,12 @@ public class GolfBallController : MonoBehaviour
 
         // adjust camera to make sure the ball is facing the goal point
         camera.transform.LookAt(goalPoint.transform);
-
     }
 
     public void SetCheatMode(bool state) 
-    { 
-        cheatMode = state;
-        Debug.Log("Golf Ball Cheat: " + cheatMode);
+    {
+        cheat = state; 
+        //Debug.Log("in value: " + state + " Golf Ball Cheat: " + cheat);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,24 +43,25 @@ public class GolfBallController : MonoBehaviour
         
         if (collision.gameObject.name == "Golfclub")
         {
-            /*if (cheatMode && !isAdjusted)
+            //Debug.Log("cheat: " + cheat + ", isadjusted: " + isAdjusted);
+            if (cheat && !isAdjusted)
             {
                 isAdjusted = true;
-                Debug.Log("Adjust golf ball");
+                //Debug.Log("Adjust golf ball");
 
                 // if cheat mode: apply force to "help" the golf ball go towards the goal point :)))
                 Vector3 TheForce = camera.transform.position + camera.transform.forward;
-                constantForce.force = -TheForce * 0.05f;
-                //Debug.Log(-TheForce * 0.1f);
+                constantForce.force = -TheForce.normalized * 10f;
+                //Debug.Log(-TheForce.normalized * 10f);
                 constantForce.enabled = true;
                 Invoke("ResetConstantForce", 1.5f);    // too obvious ? no way
-            }*/
+            }
 
             // Apply force to golf ball to simulate the effect of hitting the golf ball
             GameObject aimpioint = collision.gameObject.transform.GetChild(1).gameObject;
             Vector3 vec = aimpioint.transform.position + aimpioint.transform.forward;
-            Debug.Log(vec + ", " + vec.normalized);
-            gameObject.GetComponent<Rigidbody>().AddForce(vec.normalized);     //TODO: test
+            //Debug.Log(vec + ", " + vec.normalized);
+            gameObject.GetComponent<Rigidbody>().AddForce(vec.normalized * 2f);     //TODO: test
 
         }
     }
