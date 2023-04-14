@@ -22,7 +22,7 @@ public class SceneController : MonoBehaviour
         SteamVR_Fade.View(Color.clear, 0.5f);
     }
 
-    public IEnumerator MoveToScene(int index = -1)
+    public IEnumerator MoveToScene(int index)
     {
         Debug.Log("move to scene: " + index);
 

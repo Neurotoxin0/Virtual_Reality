@@ -8,6 +8,6 @@
 //	https://assetstore.unity.com/packages/3d/environments/modular-mini-golf-courses-229181
 //	https://unity3d.com/legal/as_terms
 //
-//	[02][Unity] SteamVR Canvas Pointer by Andrew licenced under Standard YouTube Licenses
+//	SteamVR Canvas Pointer by Andrew licenced under Standard YouTube Licenses
 //	https://www.youtube.com/watch?v=h_BMXDWv10I
 //	https://support.google.com/youtube/answer/2797468?hl=en

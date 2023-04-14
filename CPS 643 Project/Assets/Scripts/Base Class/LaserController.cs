@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Base class for raycast laser; used by PlayerController and ControlPanelController
+// Base class for raycast laser; used by PlayerController and UIPointerController
 
 [RequireComponent(typeof(LineRenderer))]
 
@@ -11,7 +11,7 @@ public class LaserController : MonoBehaviour
 
     protected private LineRenderer laser;
     protected private RaycastHit hit;
-
+        
     protected virtual void InitLaser() 
     {
         laser = GetComponent<LineRenderer>();

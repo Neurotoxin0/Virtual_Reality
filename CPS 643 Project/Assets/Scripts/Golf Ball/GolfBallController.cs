@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
@@ -9,7 +10,7 @@ public class GolfBallController : MonoBehaviour
 {
     private GameObject camera, goalPoint;
     private ConstantForce constantForce;
-    private bool cheatMode, isStriked;
+    private bool cheatMode, isAdjusted;
 
     void Start()
     {
@@ -18,20 +19,17 @@ public class GolfBallController : MonoBehaviour
         constantForce = GetComponent<ConstantForce>();
 
         cheatMode = false;
-        isStriked = false;
+        isAdjusted = false;
     }
 
     void Update()
     {
-        //Debug.Log("Golf y: " + transform.position.y);
-
         // check if fall of the course
         if (transform.position.y < -2) Destroy(gameObject);
 
         // adjust camera to make sure the ball is facing the goal point
         camera.transform.LookAt(goalPoint.transform);
 
-        Debug.Log("Cheat Mode222: " + cheatMode);
     }
 
     public void SetCheatMode(bool state) 
@@ -43,26 +41,35 @@ public class GolfBallController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("GolfBallController OnCollisionEnter" + collision.collider.name);
-        if (collision.gameObject.name == "Golfclub" && !isStriked)
+        
+        if (collision.gameObject.name == "Golfclub")
         {
-            Debug.Log("Adjust golf ball");
-            isStriked = true;
+            /*if (cheatMode && !isAdjusted)
+            {
+                isAdjusted = true;
+                Debug.Log("Adjust golf ball");
 
-            if (cheatMode) Debug.Log("Cheat Mode111: " + cheatMode);
+                // if cheat mode: apply force to "help" the golf ball go towards the goal point :)))
+                Vector3 TheForce = camera.transform.position + camera.transform.forward;
+                constantForce.force = -TheForce * 0.05f;
+                //Debug.Log(-TheForce * 0.1f);
+                constantForce.enabled = true;
+                Invoke("ResetConstantForce", 1.5f);    // too obvious ? no way
+            }*/
 
-            // if cheat mode: apply force to "help" the golf ball go towards the goal point :)))
-            Vector3 TheForce = camera.transform.position + camera.transform.forward;
-            constantForce.force = -TheForce * 0.05f;
-            Debug.Log(-TheForce * 0.1f);
-            constantForce.enabled = true;
-            Invoke("ResetConstantForce", 1.5f);    // too obvious ? no way
+            // Apply force to golf ball to simulate the effect of hitting the golf ball
+            GameObject aimpioint = collision.gameObject.transform.GetChild(1).gameObject;
+            Vector3 vec = aimpioint.transform.position + aimpioint.transform.forward;
+            Debug.Log(vec + ", " + vec.normalized);
+            gameObject.GetComponent<Rigidbody>().AddForce(vec.normalized);     //TODO: test
+
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         Invoke("UnlockStrike", 2f);
     }
-    private void UnlockStrike() { isStriked = false; }
+    private void UnlockStrike() { isAdjusted = false; }
 
     private void ResetConstantForce()
     {

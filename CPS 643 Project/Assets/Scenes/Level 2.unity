@@ -243,6 +243,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990565954}
     m_Modifications:
+    - target: {fileID: 7032763450508140895, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032763450796300109, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7879061605703606454, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -290,6 +298,10 @@ PrefabInstance:
     - target: {fileID: 7879061605703606455, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
       propertyPath: m_Name
       value: CourseGrassStone_Slim_Straight_Transition (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879061605703606455, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7879061605703606455, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
       propertyPath: m_TagString
@@ -465,7 +477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 866307130}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,6 +560,10 @@ PrefabInstance:
     - target: {fileID: 651634718797739598, guid: 1592c2c43088e6e4cbbe02d4560031f1, type: 3}
       propertyPath: m_Name
       value: ObstacleBlueTriangle_Big
+      objectReference: {fileID: 0}
+    - target: {fileID: 651634718797739598, guid: 1592c2c43088e6e4cbbe02d4560031f1, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 651634718797739598, guid: 1592c2c43088e6e4cbbe02d4560031f1, type: 3}
       propertyPath: m_TagString
@@ -652,9 +668,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990565954}
     m_Modifications:
+    - target: {fileID: 8502701667473442231, guid: 89346ca18b338fd49bdda628c5716676, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502701667740154459, guid: 89346ca18b338fd49bdda628c5716676, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8736635623398511360, guid: 89346ca18b338fd49bdda628c5716676, type: 3}
       propertyPath: m_Name
       value: CourseGrassStone_Bent_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8736635623398511360, guid: 89346ca18b338fd49bdda628c5716676, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8736635623398511360, guid: 89346ca18b338fd49bdda628c5716676, type: 3}
       propertyPath: m_TagString
@@ -783,6 +811,10 @@ PrefabInstance:
       value: ObstacleBlueTriangle
       objectReference: {fileID: 0}
     - target: {fileID: 585230573763223927, guid: 36e2e7d272e1b5d45b399cf165d461e4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 585230573763223927, guid: 36e2e7d272e1b5d45b399cf165d461e4, type: 3}
       propertyPath: m_TagString
       value: Difficulty 2
       objectReference: {fileID: 0}
@@ -800,6 +832,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990565954}
     m_Modifications:
+    - target: {fileID: 7032763450508140895, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032763450796300109, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7879061605703606454, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -849,6 +889,10 @@ PrefabInstance:
       value: CourseGrassStone_Slim_Straight_Transition
       objectReference: {fileID: 0}
     - target: {fileID: 7879061605703606455, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879061605703606455, guid: 3fc717ab220761943ba2820b5edc8938, type: 3}
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
@@ -877,6 +921,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990565954}
     m_Modifications:
+    - target: {fileID: 7323623258234763664, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7323623258516928757, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7594147990881585420, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -924,6 +976,10 @@ PrefabInstance:
     - target: {fileID: 7594147990881585423, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
       propertyPath: m_Name
       value: CourseGrassStone_End
+      objectReference: {fileID: 0}
+    - target: {fileID: 7594147990881585423, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7594147990881585423, guid: 88a6b05b969895f49a81b163d2eb88e6, type: 3}
       propertyPath: m_TagString
@@ -1037,6 +1093,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990565954}
     m_Modifications:
+    - target: {fileID: 3721638963245224060, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761241558589418083, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761241558619657402, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4103892605433702188, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1084,6 +1152,10 @@ PrefabInstance:
     - target: {fileID: 4103892605433702191, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
       propertyPath: m_Name
       value: CourseGrassStone_Hole_End_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103892605433702191, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4103892605433702191, guid: 94431755f39c81646a8eb3708b14a366, type: 3}
       propertyPath: m_TagString
@@ -1222,7 +1294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1990565954}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1258,6 +1330,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990565954}
     m_Modifications:
+    - target: {fileID: 1254853443089833883, guid: 324b2461f43de6a43a25667e016bb1b9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1254853443178011583, guid: 324b2461f43de6a43a25667e016bb1b9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2137885319711931030, guid: 324b2461f43de6a43a25667e016bb1b9, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1305,6 +1385,10 @@ PrefabInstance:
     - target: {fileID: 2137885319711931031, guid: 324b2461f43de6a43a25667e016bb1b9, type: 3}
       propertyPath: m_Name
       value: CourseGrassStone_Hill_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137885319711931031, guid: 324b2461f43de6a43a25667e016bb1b9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 324b2461f43de6a43a25667e016bb1b9, type: 3}

@@ -7,23 +7,29 @@ using UnityEngine.Events;
 
 // on Golf Club
 
-public class GolfClubController : MonoBehaviour
+public class GolfClubController : LaserController   // debug purpose: to find where GolfClub.Aim point is pointing to
 {
     [Header("Events")]
     public StrikeEvent onStrike;    // related: Screen.ScreenController.UpdateStrikeCnt; Utility.HapticCpntroller.ShortPulse;
 
+    private GameObject refObj;   // aim point as the ref
     private int strikeNum;
     private bool isStriked;
 
     void Start()
     {
+        refObj = gameObject.transform.GetChild(1).gameObject;
+        InitLaser();
+        laser.enabled = true;
+        
         strikeNum = 0;
         isStriked = false;
     }
 
     void Update()
-    {
-
+    {  
+        UpdateLaser(refObj);   
+        laser.SetPosition(1, refObj.transform.position + refObj.transform.forward);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -34,9 +40,6 @@ public class GolfClubController : MonoBehaviour
             strikeNum++;
             isStriked = true;
             onStrike.Invoke(Player.instance.rightHand, strikeNum);
-
-            // add extra force to golfball
-            //collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);     //TODO: test
         }
     }
 
